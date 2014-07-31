@@ -1,4 +1,4 @@
-var scene, camera, controls, renderer, clock,time;
+var scene, camera, controls, renderer, clock,time, lights, hall;
 
 init();
 animate();
@@ -29,7 +29,8 @@ function init() {
   photoMesh2.position.x = 20;
   scene.add(photoMesh2);
 
-  var hall = new Hall();
+  hall = new Hall();
+  lights = new Lights();
 }
 
 function animate() {
@@ -38,6 +39,7 @@ function animate() {
   renderer.render(scene, camera);
   TWEEN.update();
   controls.update();
+  lights.update();
 }
 
 // handle resizing windows
