@@ -1,5 +1,5 @@
 var photoSize = 60;
-var photoHeight = 10;
+var photoHeight = 30;
 var Photos = function() {
 
   //Doug guitar
@@ -20,7 +20,18 @@ var Photos = function() {
   });
   photoMesh = new THREE.Mesh(photoGeo, photoMat);
   photoMesh.scale.multiplyScalar(.04);
-  photoMesh.position.set(-hallWidth/2 + 1, photoSize/2 + photoHeight, playerStartZ - 100);  
+  photoMesh.position.set(-hallWidth/2 + 1, photoSize/2 + photoHeight, playerStartZ - 200);  
   photoMesh.rotation.y = Math.PI/2;
+  scene.add(photoMesh);
+
+  //Mike
+  photoGeo = new THREE.PlaneGeometry(1837, 1144);
+  photoMat = new THREE.MeshPhongMaterial({
+    map: THREE.ImageUtils.loadTexture('assets/mike.jpg')
+  });
+  photoMesh = new THREE.Mesh(photoGeo, photoMat);
+  photoMesh.scale.multiplyScalar(0.05);
+  photoMesh.position.set(hallWidth/2 -1, photoSize/2 + photoHeight, playerStartZ - 300);
+  photoMesh.rotation.y = -Math.PI/2;
   scene.add(photoMesh);
 }

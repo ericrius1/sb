@@ -1,11 +1,16 @@
-var scene, camera, controls, renderer, clock,time, lights, hall, photos;
+var scene, camera, controls, renderer, clock,time, lights, hall, photos, prize, shaders;
 
-init();
-animate();
+shaders = new ShaderLoader('shaders');
+shaders.shaderSetLoaded = function(){
+  init();
+  animate();
+}
 
+shaders.load('vs-floor', 'floor', 'vertex');
+shaders.load('fs-floor', 'floor', 'fragment');
 
 function init() {
-  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 20000);
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 20000);
   scene = new THREE.Scene();
 
   controls = new Controls();
@@ -16,12 +21,10 @@ function init() {
   document.body.appendChild(renderer.domElement);
 
   clock = new THREE.Clock();
-
-
-
   hall = new Hall();
   lights = new Lights();
   photos = new Photos();
+  // prize = new Prize();
 }
 
 function animate() {
@@ -31,6 +34,8 @@ function animate() {
   TWEEN.update();
   controls.update();
   lights.update();
+  hall.update();
+  // prize.update();
 }
 
 // handle resizing windows
