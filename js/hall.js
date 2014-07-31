@@ -13,8 +13,8 @@ var Hall = function() {
       map: imgTexture, 
       bumpMap: imgTexture,
       bumpScale: 3,
-      shininess: 40,
-      side: THREE.DoubleSide
+      shininess: 80,
+      side: THREE.DoubleSide,
     }
   )
 
@@ -24,6 +24,8 @@ var Hall = function() {
     sideRightWall.position.z -= hallLength/2;
     sideRightWall.position.y += hallWidth/2;
   scene.add(sideRightWall);
+  sideRightWall.recieveShadow = true;
+  sideRightWall.castShadow = true;
 
   var sideLeftWall = new THREE.Mesh(hallGeo, wallMaterial);
   sideLeftWall.rotation.y = Math.PI/2;

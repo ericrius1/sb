@@ -5,12 +5,14 @@ var Photos = function() {
   //Doug guitar
   var photoGeo = new THREE.PlaneGeometry(566, 496);
   var photoMat = new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('assets/doug.jpg')
+    map: THREE.ImageUtils.loadTexture('assets/doug.jpg'),
   });
   var photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.position.set(hallWidth/2 -1, photoSize/2 + photoHeight, playerStartZ - 100);
+  photoMesh.position.set(hallWidth/2 -30, photoSize/2 + photoHeight, playerStartZ - 100);
   photoMesh.scale.multiplyScalar(0.15);
   photoMesh.rotation.y = -Math.PI/2;
+  photoMesh.castShadow = true;
+  photoMesh.recieveShadow = true;
   scene.add(photoMesh);
 
   //Bill and rick
