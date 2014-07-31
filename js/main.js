@@ -1,7 +1,7 @@
-var scene, camera, controls, renderer, clock,time, lights, hall, photos, prize, shaders;
+var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders;
 
 shaders = new ShaderLoader('shaders');
-shaders.shaderSetLoaded = function(){
+shaders.shaderSetLoaded = function() {
   init();
   animate();
 }
@@ -13,9 +13,18 @@ function init() {
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 20000);
   scene = new THREE.Scene();
 
+  cubeCamera = new THREE.CubeCamera(1, 100000, 128);
+  scene.add(cubeCamera);
+
+  // MATERIALS
+
+  var cubeTarget = cubeCamera.renderTarget;
+
   controls = new Controls();
 
-  renderer = new THREE.WebGLRenderer({});
+  renderer = new THREE.WebGLRenderer({
+    antialias: true
+  });
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   document.body.appendChild(renderer.domElement);
@@ -24,6 +33,8 @@ function init() {
   hall = new Hall();
   lights = new Lights();
   photos = new Photos();
+
+
   // prize = new Prize();
 }
 

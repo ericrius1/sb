@@ -6,22 +6,26 @@ var Hall = function() {
   //because of rotation!
   var hallGeo = new THREE.PlaneGeometry(hallLength, hallWidth, 10, 2);
 
+  var imgTexture = THREE.ImageUtils.loadTexture('assets/wall.jpg');
+  imgTexture.anisotropy = renderer.getMaxAnisotropy();
+  var wallMaterial = new THREE.MeshPhongMaterial(
+    {
+      map: imgTexture, 
+      bumpMap: imgTexture,
+      bumpScale: 3,
+      shininess: 40,
+      side: THREE.DoubleSide
+    }
+  )
 
-  var backWallMat = new THREE.MeshLambertMaterial({color:0xff0000, side: THREE.DoubleSide});
-  var backWall = new THREE.Mesh(new THREE.PlaneGeometry(hallWidth, hallWidth), backWallMat);
-  backWall.position.y = hallWidth/2;
-  scene.add(backWall);
-
-  var sideRightWallMat = new THREE.MeshLambertMaterial({color: 0xff00ff, side: THREE.DoubleSide});
-  var sideRightWall = new THREE.Mesh(hallGeo, sideRightWallMat);
-  sideRightWall.rotation.y = Math.PI/2;
+  var sideRightWall = new THREE.Mesh(hallGeo, wallMaterial);
+  sideRightWall.rotation.y = -Math.PI/2;
     sideRightWall.position.x = hallWidth/2;
     sideRightWall.position.z -= hallLength/2;
     sideRightWall.position.y += hallWidth/2;
   scene.add(sideRightWall);
 
-  var sideLeftWallMat = new THREE.MeshLambertMaterial({color: 0x0000ff, side: THREE.DoubleSide});
-  var sideLeftWall = new THREE.Mesh(hallGeo, sideLeftWallMat);
+  var sideLeftWall = new THREE.Mesh(hallGeo, wallMaterial);
   sideLeftWall.rotation.y = Math.PI/2;
   sideLeftWall.position.x = -hallWidth/2;
   sideLeftWall.position.z -= hallLength/2;
@@ -40,15 +44,29 @@ var Hall = function() {
     vertexShader: shaders.vertexShaders.floor,
     fragmentShader: shaders.fragmentShaders.floor
   })
-  var floorGeo = new THREE.PlaneGeometry(hallLength, hallWidth)
+  var floorGeo = new THREE.PlaneGeometry(hallLength, hallLength)
   var bottomWall = new THREE.Mesh(floorGeo, floorMaterial);
   bottomWall.rotation.x = -Math.PI/2;
-  bottomWall.rotation.z = Math.PI/2;
+  bottomWall.rotation.z = -Math.PI/2;
   bottomWall.position.z -= hallLength/2;
   scene.add(bottomWall);
 
+
+  var backWallGeo = new THREE.PlaneGeometry(hallWidth, wallHeight);
+  imgTexture = THREE.ImageUtils.loadTexture('assets/backwall.jpg');
+  var backWallMaterial = new THREE.MeshPhongMaterial({
+    map: imgTexture,
+    bumpMap: imgTexture,
+    side: THREE.DoubleSide
+  })
+  var backWall = new THREE.Mesh(backWallGeo, backWallMaterial);
+  backWall.rotation.y = Math.PI;
+  backWall.position.y += wallHeight/2;
+  scene.add(backWall);
+
   this.update = function(){
-    floorMaterial.uniforms.time.value = time * .1;
+    var uTime = time * .1;
+    floorMaterial.uniforms.time.value = uTime;
   }
 
 }
