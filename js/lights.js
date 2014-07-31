@@ -7,6 +7,8 @@ var Lights = function (){
   scene.add(pointLight);
   pointLight.add(pointMesh);
 
+  pointLight.position.y = photoSize/2 + photoHeight;
+
   this.update = function(){
     pointLight.position.z = Math.sin(time) * 50;
   }

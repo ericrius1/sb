@@ -1,4 +1,4 @@
-var scene, camera, controls, renderer, clock,time, lights, hall;
+var scene, camera, controls, renderer, clock,time, lights, hall, photos;
 
 init();
 animate();
@@ -17,18 +17,11 @@ function init() {
 
   clock = new THREE.Clock();
 
-  var photoGeo = new THREE.PlaneGeometry(10, 10);
-  var photoMat = new THREE.MeshBasicMaterial({map : THREE.ImageUtils.loadTexture('assets/doug.jpg')});
-  var photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  scene.add(photoMesh);
 
-  var photo2Mat = new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('assets/billrick.jpg')});
-  var photoMesh2 = new THREE.Mesh(photoGeo, photo2Mat);
-  photoMesh2.position.x = 20;
-  scene.add(photoMesh2);
 
   hall = new Hall();
   lights = new Lights();
+  photos = new Photos();
 }
 
 function animate() {

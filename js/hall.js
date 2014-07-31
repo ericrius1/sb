@@ -1,5 +1,5 @@
+var wallSize = 150;
 var Hall = function() {
-  var wallSize = 200;
 
   var wallGeo = new THREE.PlaneGeometry(wallSize, wallSize);
 
