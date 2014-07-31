@@ -6,13 +6,11 @@ animate();
 
 function init() {
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 20000);
-  camera.position.z = 10;
   scene = new THREE.Scene();
 
-  controls = new THREE.OrbitControls(camera);
+  controls = new Controls();
 
   renderer = new THREE.WebGLRenderer({});
-  // renderer.setClearColor(0xffffff);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   document.body.appendChild(renderer.domElement);
