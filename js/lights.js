@@ -4,12 +4,11 @@ var Lights = function (){
   var intensity = 2.5;
   var pointLight = new THREE.PointLight(color,1);
   var pointMesh = new THREE.Mesh(new THREE.SphereGeometry(2,2));
-  scene.add(pointLight);
+  controlObject.add(pointLight);
   pointLight.add(pointMesh);
 
   pointLight.position.y = photoSize/2 + photoHeight;
 
   this.update = function(){
-    pointLight.position.z = Math.sin(time) * 50;
   }
 }

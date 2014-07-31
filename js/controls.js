@@ -1,5 +1,9 @@
+var playerStartZ = -100;
+var controlObject;
 var Controls = function() {
   var fpsControls = new THREE.PointerLockControls(camera);
+  controlObject = fpsControls.getObject();
+  controlObject.position.z = -100;
   scene.add(fpsControls.getObject());
 
   var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;

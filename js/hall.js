@@ -1,32 +1,31 @@
-var wallSize = 150;
+var wallHeight = 150;
+var hallWidth = 150;
+var hallLength = 1000;
 var Hall = function() {
 
-  var wallGeo = new THREE.PlaneGeometry(wallSize, wallSize);
+  //because of rotation!
+  var hallGeo = new THREE.PlaneGeometry(hallLength, hallWidth, 10, 2);
 
-  var backWallMat = new THREE.MeshLambertMaterial({color: 0x00ff00});
-  var backWall = new THREE.Mesh(wallGeo, backWallMat);
-  backWall.position.z = -wallSize/2;
-  backWall.position.y = wallSize/2;
+
+  var backWallMat = new THREE.MeshLambertMaterial({color:0xff0000, side: THREE.DoubleSide});
+  var backWall = new THREE.Mesh(new THREE.PlaneGeometry(hallWidth, hallWidth), backWallMat);
+  backWall.position.y = hallWidth/2;
   scene.add(backWall);
 
-  var frontWallMat = new THREE.MeshLambertMaterial({color:0xff0000, side: THREE.DoubleSide});
-  var frontWall = new THREE.Mesh(wallGeo, frontWallMat);
-  frontWall.position.z = wallSize/2;
-  frontWall.position.y = wallSize/2;
-  scene.add(frontWall);
-
   var sideRightWallMat = new THREE.MeshLambertMaterial({color: 0xff00ff, side: THREE.DoubleSide});
-  var sideRightWall = new THREE.Mesh(wallGeo, sideRightWallMat);
+  var sideRightWall = new THREE.Mesh(hallGeo, sideRightWallMat);
   sideRightWall.rotation.y = Math.PI/2;
-  sideRightWall.position.x = wallSize/2;
-  sideRightWall.position.y += wallSize/2;
+  sideRightWall.position.x = hallWidth/2;
+  sideRightWall.position.z -= hallLength/2;
+  sideRightWall.position.y += hallWidth/2;
   scene.add(sideRightWall);
 
   var sideLeftWallMat = new THREE.MeshLambertMaterial({color: 0x0000ff, side: THREE.DoubleSide});
-  var sideLeftWall = new THREE.Mesh(wallGeo, sideLeftWallMat);
+  var sideLeftWall = new THREE.Mesh(hallGeo, sideLeftWallMat);
   sideLeftWall.rotation.y = Math.PI/2;
-  sideLeftWall.position.x = -wallSize/2;
-  sideLeftWall.position.y += wallSize/2;
+  sideLeftWall.position.x = -hallWidth/2;
+  sideLeftWall.position.z -= hallLength/2;
+  sideLeftWall.position.y += hallWidth/2;
   scene.add(sideLeftWall);
 
   // var topWallMat = new THREE.MeshLambertMaterial();;

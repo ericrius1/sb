@@ -8,7 +8,7 @@ var Photos = function() {
     map: THREE.ImageUtils.loadTexture('assets/doug.jpg')
   });
   var photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.position.set(wallSize/2 -1, photoSize/2 + photoHeight, 0);
+  photoMesh.position.set(hallWidth/2 -1, photoSize/2 + photoHeight, playerStartZ - 100);
   photoMesh.scale.multiplyScalar(0.1);
   photoMesh.rotation.y = -Math.PI/2;
   scene.add(photoMesh);
@@ -20,7 +20,7 @@ var Photos = function() {
   });
   photoMesh = new THREE.Mesh(photoGeo, photoMat);
   photoMesh.scale.multiplyScalar(.04);
-  photoMesh.position.set(-wallSize/2 + 1, photoSize/2 + photoHeight, 0);  
+  photoMesh.position.set(-hallWidth/2 + 1, photoSize/2 + photoHeight, playerStartZ - 100);  
   photoMesh.rotation.y = Math.PI/2;
   scene.add(photoMesh);
 }
