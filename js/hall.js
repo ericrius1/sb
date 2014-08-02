@@ -15,6 +15,7 @@ var Hall = function() {
       bumpScale: 3,
       shininess: 80,
       side: THREE.DoubleSide,
+      customShit: true
     }
   )
 
