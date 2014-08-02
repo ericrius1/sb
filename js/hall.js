@@ -14,8 +14,6 @@ var Hall = function() {
       bumpMap: imgTexture,
       bumpScale: 3,
       shininess: 80,
-      side: THREE.DoubleSide,
-      customShit: true
     }
   )
   // var testMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, color: 0xf});
@@ -27,12 +25,21 @@ var Hall = function() {
   sideRightWall.receiveShadow = true;
   scene.add(sideRightWall);
 
-  // var sideLeftWall = new THREE.Mesh(hallGeo, wallMaterial);
-  // sideLeftWall.rotation.y = Math.PI/2;
-  // sideLeftWall.position.x = -hallWidth/2;
-  // sideLeftWall.position.z -= hallLength/2;
-  // sideLeftWall.position.y += hallWidth/2;
-  // scene.add(sideLeftWall);
+  wallMaterial = new THREE.MeshPhongMaterial(
+    {
+      map: imgTexture, 
+      bumpMap: imgTexture,
+      bumpScale: 3,
+      shininess: 80,
+    }
+  )
+  var sideLeftWall = new THREE.Mesh(hallGeo, wallMaterial);
+  sideLeftWall.rotation.y = Math.PI/2;
+  sideLeftWall.position.x = -hallWidth/2;
+  sideLeftWall.position.z -= hallLength/2;
+  sideLeftWall.position.y += hallWidth/2;
+  sideLeftWall.receiveShadow = true;
+  scene.add(sideLeftWall);
 
 
   var uniforms = {
