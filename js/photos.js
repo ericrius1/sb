@@ -8,7 +8,7 @@ var Photos = function() {
     map: THREE.ImageUtils.loadTexture('assets/doug.jpg'),
   });
   var photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.position.set(hallWidth/2 -1, photoSize/2 + photoHeight, playerStartZ - 100);
+  photoMesh.position.set(hallWidth/2 -30, photoSize/2 + photoHeight, playerStartZ - 100);
   photoMesh.scale.multiplyScalar(0.15);
   photoMesh.rotation.y = -Math.PI/2;
   photoMesh.castShadow = true;
