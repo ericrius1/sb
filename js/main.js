@@ -26,6 +26,8 @@ function init() {
     antialias: true
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.shadowMapEnabled = true;
+  renderer.shadowMapSoft = true;
 
   document.body.appendChild(renderer.domElement);
 

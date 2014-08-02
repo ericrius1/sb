@@ -18,22 +18,21 @@ var Hall = function() {
       customShit: true
     }
   )
-
+  // var testMaterial = new THREE.MeshPhongMaterial({side: THREE.DoubleSide, color: 0xf});
   var sideRightWall = new THREE.Mesh(hallGeo, wallMaterial);
   sideRightWall.rotation.y = -Math.PI/2;
     sideRightWall.position.x = hallWidth/2;
     sideRightWall.position.z -= hallLength/2;
     sideRightWall.position.y += hallWidth/2;
+  sideRightWall.receiveShadow = true;
   scene.add(sideRightWall);
-  sideRightWall.recieveShadow = true;
-  sideRightWall.castShadow = true;
 
-  var sideLeftWall = new THREE.Mesh(hallGeo, wallMaterial);
-  sideLeftWall.rotation.y = Math.PI/2;
-  sideLeftWall.position.x = -hallWidth/2;
-  sideLeftWall.position.z -= hallLength/2;
-  sideLeftWall.position.y += hallWidth/2;
-  scene.add(sideLeftWall);
+  // var sideLeftWall = new THREE.Mesh(hallGeo, wallMaterial);
+  // sideLeftWall.rotation.y = Math.PI/2;
+  // sideLeftWall.position.x = -hallWidth/2;
+  // sideLeftWall.position.z -= hallLength/2;
+  // sideLeftWall.position.y += hallWidth/2;
+  // scene.add(sideLeftWall);
 
 
   var uniforms = {
