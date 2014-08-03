@@ -1,10 +1,10 @@
 var wallHeight = 150;
-var hallWidth = 150;
-var hallLength = 1000;
+var hallWidth = 250;
+var hallLength = 1100;
 var Hall = function() {
 
   //because of rotation!
-  var hallGeo = new THREE.PlaneGeometry(hallLength, hallWidth, 10, 2);
+  var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight, 10, 2);
 
   var imgTexture = THREE.ImageUtils.loadTexture('assets/wall.jpg');
   imgTexture.anisotropy = renderer.getMaxAnisotropy();
@@ -21,7 +21,7 @@ var Hall = function() {
   sideRightWall.rotation.y = -Math.PI/2;
     sideRightWall.position.x = hallWidth/2;
     sideRightWall.position.z -= hallLength/2;
-    sideRightWall.position.y += hallWidth/2;
+    sideRightWall.position.y += wallHeight/2;
   sideRightWall.receiveShadow = true;
   scene.add(sideRightWall);
 
@@ -37,7 +37,7 @@ var Hall = function() {
   sideLeftWall.rotation.y = Math.PI/2;
   sideLeftWall.position.x = -hallWidth/2;
   sideLeftWall.position.z -= hallLength/2;
-  sideLeftWall.position.y += hallWidth/2;
+  sideLeftWall.position.y += wallHeight/2;
   sideLeftWall.receiveShadow = true;
   scene.add(sideLeftWall);
 
@@ -61,17 +61,17 @@ var Hall = function() {
   scene.add(bottomWall);
 
 
-  var backWallGeo = new THREE.PlaneGeometry(hallWidth, wallHeight);
-  imgTexture = THREE.ImageUtils.loadTexture('assets/backwall.jpg');
-  var backWallMaterial = new THREE.MeshPhongMaterial({
-    map: imgTexture,
-    bumpMap: imgTexture,
-    side: THREE.DoubleSide
-  })
-  var backWall = new THREE.Mesh(backWallGeo, backWallMaterial);
-  backWall.rotation.y = Math.PI;
-  backWall.position.y += wallHeight/2;
-  scene.add(backWall);
+  // var backWallGeo = new THREE.PlaneGeometry(hallWidth, wallHeight);
+  // imgTexture = THREE.ImageUtils.loadTexture('assets/backwall.jpg');
+  // var backWallMaterial = new THREE.MeshPhongMaterial({
+  //   map: imgTexture,
+  //   bumpMap: imgTexture,
+  //   side: THREE.DoubleSide
+  // })
+  // var backWall = new THREE.Mesh(backWallGeo, backWallMaterial);
+  // backWall.rotation.y = Math.PI;
+  // backWall.position.y += wallHeight/2;
+  // scene.add(backWall);
 
   this.update = function(){
     var uTime = time * .1;

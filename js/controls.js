@@ -5,6 +5,11 @@ var Controls = function() {
   controlObject = fpsControls.getObject();
   controlObject.position.z = -100;
   scene.add(fpsControls.getObject());
+  var clipPadding = 20;
+
+  function teleport(point){
+    controlObject.position.set(point);
+  }
 
   var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
@@ -80,6 +85,12 @@ var Controls = function() {
   this.update = function() {
 
     fpsControls.update();
+    if(controlObject.position.x > hallWidth/2 - clipPadding){
+      controlObject.position.x = hallWidth/2 - clipPadding;
+    }
+    if(controlObject.position.x < -hallWidth/2 + clipPadding){
+      controlObject.position.x = -hallWidth/2 + clipPadding;
+    }
 
   }
 }

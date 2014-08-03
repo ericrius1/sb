@@ -46,9 +46,7 @@ function animate() {
   renderer.render(scene, camera);
   TWEEN.update();
   controls.update();
-  lights.update();
   hall.update();
-  // prize.update();
 }
 
 // handle resizing windows
