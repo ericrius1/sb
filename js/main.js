@@ -47,7 +47,6 @@ function animate() {
   TWEEN.update();
   controls.update();
   hall.update();
-  photos.update();
 }
 
 // handle resizing windows

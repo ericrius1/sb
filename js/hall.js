@@ -50,28 +50,25 @@ var Hall = function() {
       value: 0.0
     }
   }
-  var floorMaterial = new THREE.ShaderMaterial({
+  var ceilingMaterial = new THREE.ShaderMaterial({
     uniforms: uniforms,
     vertexShader: shaders.vertexShaders.floor,
     fragmentShader: shaders.fragmentShaders.floor
   })
-  var floorGeo = new THREE.PlaneGeometry(hallLength, hallLength)
-  var floor = new THREE.Mesh(floorGeo, floorMaterial);
-  floor.rotation.x = -Math.PI / 2;
-  floor.position.z -= hallLength / 2;
-  scene.add(floor);
 
-  var ceiling = new THREE.Mesh(floorGeo);
+  var ceilingGeo  = new THREE.PlaneGeometry(hallLength, hallLength)
+  var ceiling = new THREE.Mesh(ceilingGeo, ceilingMaterial);
   ceiling.position.y += wallHeight;
   ceiling.rotation.x = Math.PI / 2;
   ceiling.position.z -= hallLength / 2;
-  // scene.add(ceiling);
+  scene.add(ceiling);
 
+  var floor = new Floor();
 
 
   this.update = function() {
     var uTime = time * .1;
-    floorMaterial.uniforms.time.value = uTime;
+    ceilingMaterial.uniforms.time.value = uTime;
   }
 
 }
