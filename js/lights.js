@@ -36,7 +36,7 @@ var Lights = function() {
   dirLight.shadowMapWidth = 2048;
   dirLight.shadowMapHeight = 2048;
   dirLight.castShadow = true;
-  dirLight.shadowCameraVisible = true;
+  // dirLight.shadowCameraVisible = true;
   scene.add(dirLight);
 
 

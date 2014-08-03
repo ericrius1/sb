@@ -1,13 +1,15 @@
 var playerStartZ = -100;
 var controlObject;
 var Controls = function() {
+  var blocker = document.getElementById('blocker');
+  var instructions = document.getElementById('instructions');
   var fpsControls = new THREE.PointerLockControls(camera);
   controlObject = fpsControls.getObject();
   controlObject.position.z = -100;
   scene.add(fpsControls.getObject());
   var clipPadding = 20;
 
-  function teleport(point){
+  function teleport(point) {
     controlObject.position.set(point);
   }
 
@@ -22,11 +24,18 @@ var Controls = function() {
       if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
 
         fpsControls.enabled = true;
+        blocker.style.display = 'none';
 
 
       } else {
 
         fpsControls.enabled = false;
+
+        blocker.style.display = '-webkit-box';
+        blocker.style.display = '-moz-box';
+        blocker.style.display = 'box';
+
+        instructions.style.display = '';
 
       }
 
@@ -85,11 +94,11 @@ var Controls = function() {
   this.update = function() {
 
     fpsControls.update();
-    if(controlObject.position.x > hallWidth/2 - clipPadding){
-      controlObject.position.x = hallWidth/2 - clipPadding;
+    if (controlObject.position.x > hallWidth / 2 - clipPadding) {
+      controlObject.position.x = hallWidth / 2 - clipPadding;
     }
-    if(controlObject.position.x < -hallWidth/2 + clipPadding){
-      controlObject.position.x = -hallWidth/2 + clipPadding;
+    if (controlObject.position.x < -hallWidth / 2 + clipPadding) {
+      controlObject.position.x = -hallWidth / 2 + clipPadding;
     }
 
   }

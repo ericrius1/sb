@@ -6,7 +6,7 @@ var Photos = function() {
   var root = 'assets/'
   //key is url root and value is resolution and scale data
   var photosData = [
-    {name: 'doug.jpg', res:[566, 496], scale: .25},
+    {name: 'doug.jpg', res:[566, 496], scale: .35},
     {name: 'billrick.jpg', res: [2048, 1152], scale: .15},
     {name: 'mike.jpg', res: [1837, 1144], scale: .16},
     {name: 'cjkiakyle.jpg', res: [605, 466], scale: .26},
