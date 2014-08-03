@@ -27,7 +27,7 @@ function init() {
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMapEnabled = true;
-  renderer.shadowMapSoft = true;
+  renderer.shadowMapType = THREE.PCFShadowMap
 
   document.body.appendChild(renderer.domElement);
 
@@ -47,6 +47,7 @@ function animate() {
   TWEEN.update();
   controls.update();
   hall.update();
+  photos.update();
 }
 
 // handle resizing windows

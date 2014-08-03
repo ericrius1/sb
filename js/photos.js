@@ -1,71 +1,60 @@
 var photoHeight = 100;
-var photoGap = 5
+var photoGap = 10
+
+
 var Photos = function() {
-  var photoGap = 5;
-  //Doug guitar
-  var photoGeo = new THREE.PlaneGeometry(566, 496);
-  var photoMat = new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('assets/doug.jpg'),
-    side: THREE.DoubleSide
-  });
+  var root = 'assets/'
+  //key is url root and value is resolution and scale data
+  var photosData = [
+    {name: 'doug.jpg', res:[566, 496], scale: .25},
+    {name: 'billrick.jpg', res: [2048, 1152], scale: .15},
+    {name: 'mike.jpg', res: [1837, 1144], scale: .16},
+    {name: 'cjkiakyle.jpg', res: [605, 466], scale: .26},
+    {name: 'relkendra.jpg', res: [960, 720], scale: .21},
+  ]
+  var photoMeshes = [];
+  loadPhotos();
+  placePhotos();
 
-  var photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.position.set(hallWidth/2 -photoGap, photoHeight, playerStartZ - 100);
-  photoMesh.scale.multiplyScalar(0.15);
-  photoMesh.rotation.y = -Math.PI/2;
-  photoMesh.castShadow = true;
-  scene.add(photoMesh);
+  function loadPhotos(){
+    var texture, photoGeo, photoMat, photoMesh;
+    _.each(photosData, function(data){
+      texture = THREE.ImageUtils.loadTexture(root + data.name );
+      photoGeo = new THREE.PlaneGeometry(data.res[0], data.res[1]);
+      photoMat = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+      photoMesh = new THREE.Mesh(photoGeo, photoMat);
+      photoMesh.scale.multiplyScalar(data.scale);
+      photoMesh.castShadow = true;
+      scene.add(photoMesh);
+      photoMeshes.push(photoMesh);
+    });
+  }
 
-  //Bill and rick
-  photoGeo = new THREE.PlaneGeometry(2048, 1152)
-  photoMat = new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('assets/billrick.jpg'),
-    side: THREE.DoubleSide
-  });
-  photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.scale.multiplyScalar(.05);
-  photoMesh.position.set(-hallWidth/2 + photoGap, photoHeight, playerStartZ - 200);  
-  photoMesh.rotation.y = Math.PI/2;
-  photoMesh.castShadow = true;
-  scene.add(photoMesh);
+  function placePhotos(){
+    //shuffled photos indices
+    var spi = _.shuffle(_.range(photoMeshes.length));
+    var curIndex = 0;
+    
+    //back
+    var photo = photoMeshes[spi[curIndex++]];
+    photo.position.set(0, photoHeight, 0-photoGap);
+    
+    //Front
+    photo = photoMeshes[spi[curIndex++]];
+    photo.position.set(0, photoHeight, -hallLength + photoGap)
 
-  //Mike
-  photoGeo = new THREE.PlaneGeometry(1837, 1144);
-  photoMat = new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('assets/mike.jpg'),
-    side: THREE.DoubleSide
-  });
-  photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.scale.multiplyScalar(0.06);
-  photoMesh.position.set(hallWidth/2 -photoGap, photoHeight, playerStartZ - 300);
-  photoMesh.rotation.y = -Math.PI/2;
-  photoMesh.castShadow = true;
-  scene.add(photoMesh);
+    photo = photoMeshes[spi[curIndex++]];
+    photo.position.set( hallWidth * .33, photoHeight, -hallLength + photoGap)
 
+    //Left side
+    photo = photoMeshes[spi[curIndex++]];
+    photo.position.set(-hallWidth/2 + photoGap, photoHeight, -hallLength/2)
+    photo.rotation.y = Math.PI/2;
 
-  //CJ KIA KYLE
-  photoGeo = new THREE.PlaneGeometry(605, 466);
-  photoMat = new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('assets/cjkiakyle.jpg'),
-    side: THREE.DoubleSide
-  });
-  photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.scale.multiplyScalar(0.14 );
-  photoMesh.position.set(-hallWidth/2 +photoGap, photoHeight, playerStartZ - 400);
-  photoMesh.rotation.y = Math.PI/2;
-  photoMesh.castShadow = true;
-  scene.add(photoMesh);
+    //Right side
+    photo = photoMeshes[spi[curIndex++]];
+    photo.position.set(hallWidth/2 - photoGap, photoHeight, -hallLength/2)
+    photo.rotation.y = Math.PI/2;
+  }
 
-  //Rel Kendra
-  photoGeo = new THREE.PlaneGeometry(960, 720);
-  photoMat = new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('assets/relkendra.jpg'),
-    side: THREE.DoubleSide
-  });
-  photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.scale.multiplyScalar(0.11 );
-  photoMesh.position.set(hallWidth/2 -photoGap, photoHeight, playerStartZ - 500);
-  photoMesh.rotation.y = -Math.PI/2;
-  photoMesh.castShadow = true;
-  scene.add(photoMesh);
 }
