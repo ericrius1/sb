@@ -69,6 +69,7 @@ var Hall = function() {
   this.update = function() {
     var uTime = time * .1;
     ceilingMaterial.uniforms.time.value = uTime;
+    floor.update();
   }
 
 }

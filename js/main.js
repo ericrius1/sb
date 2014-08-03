@@ -1,3 +1,4 @@
+
 var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders;
 
 shaders = new ShaderLoader('shaders');
@@ -58,4 +59,8 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+}
+
+function map(value, min1, max1, min2, max2){
+  return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
 }

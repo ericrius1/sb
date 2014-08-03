@@ -32,15 +32,6 @@ var Lights = function() {
   dirLight.shadowCameraFar = 200;
   dirLight.shadowDarkness = darkness;
   dirLight.castShadow = true;
-  // dirLight.shadowCameraVisible = true;
+  dirLight.shadowCameraVisible = true;
   scene.add(dirLight);
-
-
-
-
-
-  this.update = function() {
-
-
-  }
 }
