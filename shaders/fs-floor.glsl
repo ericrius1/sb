@@ -9,7 +9,7 @@ float map(float value, float min1, float max1, float min2, float max2){
   return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
 }
 void main() {
-  float px = map(sin(time * 5.0), -1.0, 1.0, 0.43, 0.47);
+  float px = map(sin(time * 5.0), -1.0, 1.0, 0., 1.);
   float py = abs(sin(time));
   vec2 point = vec2(py, px);
   float dist = pow(distance(vUv, point), .1);

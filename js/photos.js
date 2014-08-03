@@ -1,5 +1,4 @@
-var photoSize = 60;
-var photoHeight = 30;
+var photoHeight = 100;
 var photoGap = 5
 var Photos = function() {
   var photoGap = 5;
@@ -11,7 +10,7 @@ var Photos = function() {
   });
 
   var photoMesh = new THREE.Mesh(photoGeo, photoMat);
-  photoMesh.position.set(hallWidth/2 -photoGap, photoSize/2 + photoHeight, playerStartZ - 100);
+  photoMesh.position.set(hallWidth/2 -photoGap, photoHeight, playerStartZ - 100);
   photoMesh.scale.multiplyScalar(0.15);
   photoMesh.rotation.y = -Math.PI/2;
   photoMesh.castShadow = true;
@@ -25,7 +24,7 @@ var Photos = function() {
   });
   photoMesh = new THREE.Mesh(photoGeo, photoMat);
   photoMesh.scale.multiplyScalar(.05);
-  photoMesh.position.set(-hallWidth/2 + photoGap, photoSize/2 + photoHeight, playerStartZ - 200);  
+  photoMesh.position.set(-hallWidth/2 + photoGap, photoHeight, playerStartZ - 200);  
   photoMesh.rotation.y = Math.PI/2;
   photoMesh.castShadow = true;
   scene.add(photoMesh);
@@ -38,7 +37,7 @@ var Photos = function() {
   });
   photoMesh = new THREE.Mesh(photoGeo, photoMat);
   photoMesh.scale.multiplyScalar(0.06);
-  photoMesh.position.set(hallWidth/2 -photoGap, photoSize/2 + photoHeight, playerStartZ - 300);
+  photoMesh.position.set(hallWidth/2 -photoGap, photoHeight, playerStartZ - 300);
   photoMesh.rotation.y = -Math.PI/2;
   photoMesh.castShadow = true;
   scene.add(photoMesh);
@@ -52,7 +51,7 @@ var Photos = function() {
   });
   photoMesh = new THREE.Mesh(photoGeo, photoMat);
   photoMesh.scale.multiplyScalar(0.14 );
-  photoMesh.position.set(-hallWidth/2 +photoGap, photoSize/2 + photoHeight, playerStartZ - 400);
+  photoMesh.position.set(-hallWidth/2 +photoGap, photoHeight, playerStartZ - 400);
   photoMesh.rotation.y = Math.PI/2;
   photoMesh.castShadow = true;
   scene.add(photoMesh);
@@ -65,7 +64,7 @@ var Photos = function() {
   });
   photoMesh = new THREE.Mesh(photoGeo, photoMat);
   photoMesh.scale.multiplyScalar(0.11 );
-  photoMesh.position.set(hallWidth/2 -photoGap, photoSize/2 + photoHeight, playerStartZ - 500);
+  photoMesh.position.set(hallWidth/2 -photoGap, photoHeight, playerStartZ - 500);
   photoMesh.rotation.y = -Math.PI/2;
   photoMesh.castShadow = true;
   scene.add(photoMesh);
