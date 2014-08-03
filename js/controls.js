@@ -100,6 +100,12 @@ var Controls = function() {
     if (controlObject.position.x < -hallWidth / 2 + clipPadding) {
       controlObject.position.x = -hallWidth / 2 + clipPadding;
     }
+    if (controlObject.position.z > 0 - clipPadding) {
+      controlObject.position.z = 0 - clipPadding;
+    }
+    if (controlObject.position.z < -hallLength + clipPadding) {
+      controlObject.position.z = -hallLength + clipPadding;
+    }
 
   }
 }

@@ -54,7 +54,7 @@ var Photos = function() {
     //Right side
     photo = photoMeshes[spi[curIndex++]];
     photo.position.set(hallWidth/2 - photoGap, photoHeight, -hallLength/2)
-    photo.rotation.y = Math.PI/2;
+    photo.rotation.y = -Math.PI/2;
   }
 
 }
