@@ -11,7 +11,7 @@ shaders.load('vs-floor', 'floor', 'vertex');
 shaders.load('fs-floor', 'floor', 'fragment');
 
 function init() {
-  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 20000);
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 20000);
   scene = new THREE.Scene();
 
   cubeCamera = new THREE.CubeCamera(1, 100000, 128);

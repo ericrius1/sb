@@ -1,10 +1,10 @@
-var wallHeight = 250;
-var hallWidth = 1500;
-var hallLength = 1500;
+var wallHeight = 300;
+var hallWidth = 2000;
+var hallLength = 2000;
 var Hall = function() {
 
   //because of rotation!
-  var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight, 10, 2);
+  var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight);
 
   var imgTexture = THREE.ImageUtils.loadTexture('assets/wall.jpg');
   imgTexture.anisotropy = renderer.getMaxAnisotropy();
