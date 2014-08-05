@@ -1,4 +1,4 @@
-var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting;
+var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,test;
 
 shaders = new ShaderLoader('shaders');
 shaders.shaderSetLoaded = function() {
@@ -6,10 +6,12 @@ shaders.shaderSetLoaded = function() {
   animate();
 }
 
-shaders.load('vs-floor', 'floor', 'vertex');
-shaders.load('fs-floor', 'floor', 'fragment');
 shaders.load('vs-ceiling', 'ceiling', 'vertex');
 shaders.load('fs-ceiling', 'ceiling', 'fragment');
+shaders.load('vs-floor', 'floor', 'vertex');
+shaders.load('fs-floor', 'floor', 'fragment');
+shaders.load('vs-simulation', 'simulation', 'vertex');
+shaders.load('fs-simulation', 'simulation', 'fragment');
 
 function init() {
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 20000);
@@ -36,6 +38,7 @@ function init() {
   clock = new THREE.Clock();
   hall = new Hall();
   lights = new Lights();
+  floor = new Floor();
   photos = new Photos();
   painting = new Painting();
 

@@ -62,7 +62,6 @@ var Hall = function() {
   ceiling.position.z -= hallLength / 2;
   scene.add(ceiling);
 
-  var floor = new Floor();
 
 
   this.update = function() {

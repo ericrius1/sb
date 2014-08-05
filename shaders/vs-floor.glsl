@@ -1,5 +1,11 @@
+uniform sampler2D map;
 varying vec2 vUv;
+varying vec3 vPosition;
 void main(void) {
-  vUv = vec2(uv.x, 1.0 - uv.y);
-  gl_Position =  projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  vec2 uv = position.xy;
+  vec4 data = texture2D(map, uv);
+
+  vPosition = data.xyz;
+  gl_PointSize = 10.0;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(vPosition, 1.0);
 }
