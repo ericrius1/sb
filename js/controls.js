@@ -1,5 +1,4 @@
-var playerStartZ = -100;
-var controlObject;
+
 var Controls = function() {
   var blocker = document.getElementById('blocker');
   var instructions = document.getElementById('instructions');
@@ -7,7 +6,6 @@ var Controls = function() {
   controlObject = fpsControls.getObject();
   controlObject.position.z = -100;
   scene.add(fpsControls.getObject());
-  var clipPadding = 20;
 
   function teleport(point) {
     controlObject.position.set(point);

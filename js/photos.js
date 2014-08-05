@@ -1,5 +1,4 @@
-var photoHeight = 100;
-var photoGap = 10
+
 
 
 var Photos = function() {

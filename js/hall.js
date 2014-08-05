@@ -1,6 +1,4 @@
-var wallHeight = 300;
-var hallWidth = 2000;
-var hallLength = 2000;
+
 var Hall = function() {
 
   //because of rotation!
