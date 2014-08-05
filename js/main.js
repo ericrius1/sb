@@ -8,6 +8,8 @@ shaders.shaderSetLoaded = function() {
 
 shaders.load('vs-floor', 'floor', 'vertex');
 shaders.load('fs-floor', 'floor', 'fragment');
+shaders.load('vs-ceiling', 'ceiling', 'vertex');
+shaders.load('fs-ceiling', 'ceiling', 'fragment');
 
 function init() {
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 20000);

@@ -50,8 +50,8 @@ var Hall = function() {
   }
   var ceilingMaterial = new THREE.ShaderMaterial({
     uniforms: uniforms,
-    vertexShader: shaders.vertexShaders.floor,
-    fragmentShader: shaders.fragmentShaders.floor
+    vertexShader: shaders.vertexShaders.ceiling,
+    fragmentShader: shaders.fragmentShaders.ceiling
   })
 
   var ceilingGeo  = new THREE.PlaneGeometry(hallLength, hallLength)
