@@ -1,5 +1,4 @@
-
-var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders;
+var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting;
 
 shaders = new ShaderLoader('shaders');
 shaders.shaderSetLoaded = function() {
@@ -36,6 +35,7 @@ function init() {
   hall = new Hall();
   lights = new Lights();
   photos = new Photos();
+  painting = new Painting();
 
 
   // prize = new Prize();
@@ -48,6 +48,7 @@ function animate() {
   TWEEN.update();
   controls.update();
   hall.update();
+  painting.update();
 }
 
 // handle resizing windows
@@ -61,6 +62,14 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
 }
 
-function map(value, min1, max1, min2, max2){
+function map(value, min1, max1, min2, max2) {
   return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
+}
+
+function hslToFillStyle(h, s, l, a) {
+  if (a === undefined) {
+    return ["hsl(", h, ",", s, "%,", l, "%)"].join('');
+  } else {
+    return ["hsla(", h, ",", s, "%,", l, "%,", a, ")"].join('');
+  }
 }

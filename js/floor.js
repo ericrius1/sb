@@ -10,7 +10,6 @@ var Floor = function() {
   canvas.height = 2000;
   var canvasTexture = new THREE.Texture(canvas);
   canvasTexture.needsUpdate = true;
-  canvasTexture.anisotrpy = renderer.getMaxAnisotropy();
   var ctx = canvas.getContext('2d');
 
   x = map(controlObject.position.x, -hallWidth / 2, hallWidth / 2, 0, canvas.width);
@@ -33,8 +32,6 @@ var Floor = function() {
     x = map(controlObject.position.x, -hallWidth / 2, hallWidth / 2, 0, canvas.width);
     y = map(controlObject.position.z, -hallLength, 0, 0, canvas.height);
 
-    theta +=.1;
-    // radius +=.1;
     hue+=.1
 
     ctx.beginPath();
@@ -47,13 +44,5 @@ var Floor = function() {
 
     canvasTexture.needsUpdate = true;
 
-  }
-}
-
-function hslToFillStyle(h, s, l, a) {
-  if (a === undefined) {
-    return ["hsl(", h, ",", s, "%,", l, "%)"].join('');
-  } else {
-    return ["hsla(", h, ",", s, "%,", l, "%,", a, ")"].join('');
   }
 }
