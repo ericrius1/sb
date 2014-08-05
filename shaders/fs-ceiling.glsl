@@ -1,4 +1,5 @@
 uniform float time;
+uniform vec2 resolution;
 varying vec2 vUv;
 
 
@@ -8,27 +9,27 @@ varying vec2 vUv;
 float map(float value, float min1, float max1, float min2, float max2){
   return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
 }
-void main() {
-  float px = map(sin(time * 5.0), -1.0, 1.0, 0., 1.);
-  float py = abs(sin(time));
-  vec2 point = vec2(py, px);
-  float dist = pow(distance(vUv, point), .1);
-  float intensity =  smoothstep(1.0, 0.0, dist);
-  vec3 color = vec3(intensity, 0.0, intensity + .1);
 
-  px+= .05;
-  py = abs(sin( (time + 100.) * 0.4));
-  point = vec2(py, px);
-  dist = pow(distance(vUv, point), .1);
-  intensity = smoothstep(1.0, 0.0, dist);
-  color.rg += intensity;
+float field(in vec3 p) {
+  float strength = 4. + .03 ;
+  float accum = 0.;
+  float prev = 0.;
+  float tw = 0.;
+  for (int i = 0; i < 17; ++i) {
+    float mag = dot(p, p);
+    p = abs(p) / mag + vec3(-.2, -.5, -1.445);
+    float w = exp(-float(i) / 7.);
+    accum += w * exp(-strength * pow(abs(mag - prev), 1.3));
+    tw += w;
+    prev =mix(mag,prev,0.5*(1.+sin(time*0.21)));
+  }
+  return max(0., 5. * accum / tw - 0.7);
+}
 
-  px+= .05;
-  py = abs(sin( (time + 200.) * .7));
-  point = vec2(py, px);
-  dist = pow(distance(vUv, point), .1);
-  intensity = smoothstep(1.0, 0.0, dist);
-  color.gb += intensity;
-
-  gl_FragColor = vec4(color, 1.0);
+void main(){
+  vec2 uvs = vUv.xy * resolution.xy / max(resolution.x, resolution.y);
+  vec3 p = vec3(uvs /4., 0) + vec3(1., -1.3, 0.);
+  p += vec3(vec2(.2,.2),cos(time*-.1));
+  float t = field(p);
+  gl_FragColor =  vec4( vec3(0.15) + vec3(4.8*t* t * t * t, 0.9 * t * t, t) , 1.0);
 }

@@ -40,7 +40,6 @@ function init() {
   painting = new Painting();
 
 
-  // prize = new Prize();
 }
 
 function animate() {

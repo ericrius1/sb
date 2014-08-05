@@ -39,8 +39,6 @@ var Hall = function() {
   frontWall.position.z -= hallLength;
   scene.add(frontWall)
 
-
-
   var uniforms = {
     time: {
       type: 'f',
