@@ -1,4 +1,3 @@
-
 var Hall = function() {
 
   //because of rotation!
@@ -46,6 +45,10 @@ var Hall = function() {
     time: {
       type: 'f',
       value: 0.0
+    },
+    resolution: {
+      type: "v2",
+      value: new THREE.Vector2(window.innerWidth, window.innerHeight)
     }
   }
   var ceilingMaterial = new THREE.ShaderMaterial({
@@ -54,7 +57,7 @@ var Hall = function() {
     fragmentShader: shaders.fragmentShaders.ceiling
   })
 
-  var ceilingGeo  = new THREE.PlaneGeometry(hallLength, hallLength)
+  var ceilingGeo = new THREE.PlaneGeometry(hallLength, hallLength)
   var ceiling = new THREE.Mesh(ceilingGeo, ceilingMaterial);
   ceiling.position.y += wallHeight;
   ceiling.rotation.x = Math.PI / 2;
