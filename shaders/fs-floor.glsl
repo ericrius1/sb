@@ -1,6 +1,5 @@
-uniform float time;
-uniform vec2 playerPos;
 varying vec2 vUv;
+uniform sampler 2D tOrig
 
 
 // window.map = function(value, min1, max1, min2, max2){
