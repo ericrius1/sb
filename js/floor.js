@@ -3,7 +3,17 @@ var Floor = function() {
 
   var sceneRTT = new THREE.Scene();
   var cameraRTT = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0, 1);
-  var mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1));
+  var simulationMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      playerPosition: {
+        type: 'v2',
+        value: new THREE.Vector2()
+      }
+    },
+    vertexShader: shaders.vertexShaders.floor,
+    fragmentShader: shaders.fragmentShaders.floorPass
+  });
+  var mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), simulationMaterial);
   sceneRTT.add(mesh);
   var size = 1024;
   var rtTexture = new THREE.WebGLRenderTarget(size, size,{
