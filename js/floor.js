@@ -22,6 +22,10 @@ var Floor = function() {
       state: {
         type: 't',
         value: rtTexture2
+      },
+      time: {
+        type: 'f',
+        value: 0.0
       }
     },
     vertexShader: shaders.vertexShaders.floor,
@@ -36,10 +40,6 @@ var Floor = function() {
         type: 't',
         value: rtTexture
       },
-      playerPosition: {
-        type: 'v2',
-        value: new THREE.Vector2()
-      }
     },
     vertexShader: shaders.vertexShaders.floor,
     fragmentShader: shaders.fragmentShaders.floor
@@ -47,7 +47,7 @@ var Floor = function() {
 
   
   var floorGeo = new THREE.PlaneGeometry(hallLength, hallLength)
-  var floor = new THREE.Mesh(floorGeo, floorMaterial);
+  var floor = new THREE.Mesh(floorGeo);
   floor.rotation.x = -Math.PI / 2;
   floor.position.z -= hallLength / 2;
   scene.add(floor);
@@ -65,8 +65,9 @@ var Floor = function() {
     flipflop = !flipflop
     x = map(controlObject.position.x, -hallWidth / 2, hallWidth / 2, 0, 1);
     y = map(controlObject.position.z, -hallLength, 0, 1, 0);
+    
+    simulationMaterial.uniforms.time.value = time;
     simulationMaterial.uniforms.playerPosition.value.set(x,y);
-    floorMaterial.uniforms.playerPosition.value.set(x,y);
 
 
   }

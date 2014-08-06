@@ -1,4 +1,4 @@
-var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,test;
+var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs;
 
 shaders = new ShaderLoader('shaders');
 shaders.shaderSetLoaded = function() {
@@ -11,6 +11,7 @@ shaders.load('fs-ceiling', 'ceiling', 'fragment');
 shaders.load('vs-floor', 'floor', 'vertex');
 shaders.load('fs-floor', 'floor', 'fragment');
 shaders.load('fs-floor-pass1', 'floorPass', 'fragment');
+shaders.load('fs-blobs', 'blobs', 'fragment');
 
 
 function init() {
@@ -41,6 +42,7 @@ function init() {
   floor = new Floor();
   photos = new Photos();
   painting = new Painting();
+  blobs = new Blobs();
 
 
 }
@@ -54,6 +56,7 @@ function animate() {
   hall.update();
   painting.update();
   floor.update();
+  blobs.update();
 }
 
 // handle resizing windows

@@ -74,7 +74,7 @@ var Controls = function() {
         }
 
         document.addEventListener('fullscreenchange', fullscreenchange, false);
-        documents.addEventListener('mozfullscreenchange', fullscreenchange, false);
+        document.addEventListener('mozfullscreenchange', fullscreenchange, false);
 
         element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
 
