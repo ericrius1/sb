@@ -40,7 +40,7 @@ function init() {
   clock = new THREE.Clock();
   hall = new Hall();
   lights = new Lights();
-  floor2 = new Floor2();
+  floor = new Floor2();
   photos = new Photos();
   painting = new Painting();
 
@@ -55,7 +55,7 @@ function animate() {
   controls.update();
   hall.update();
   painting.update();
-  floor2.update();
+  floor.update();
 }
 
 // handle resizing windows
