@@ -1,4 +1,6 @@
 var Blobs = function(){
+  var localTimeStart = _.random(0, 9999);
+  var localTime;
   var blobsMat = new THREE.ShaderMaterial({
     uniforms: {
       time: {
@@ -12,9 +14,9 @@ var Blobs = function(){
     },
     vertexShader: shaders.vertexShaders.ceiling,
     fragmentShader: shaders.fragmentShaders.blobs,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
   })
-  var blobsMesh = new THREE.Mesh(new THREE.PlaneGeometry(250, 200), blobsMat);
+  var blobsMesh = new THREE.Mesh(new THREE.PlaneGeometry(250, 160), blobsMat);
   blobsMesh.position.set(hallWidth/2 - photoGap, photoHeight, -hallLength * 0.66 - 100);
   blobsMesh.rotation.y = -Math.PI/2;
   blobsMesh.castShadow = true;
@@ -22,6 +24,7 @@ var Blobs = function(){
   scene.add(blobsMesh);
 
   this.update = function(){
-    blobsMat.uniforms.time.value = time * 0.5;
+    localTime= time + localTimeStart;
+    blobsMat.uniforms.time.value = localTime * .001;
   }
 }
