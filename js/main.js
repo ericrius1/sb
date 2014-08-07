@@ -1,4 +1,4 @@
-var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs;
+var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs, dotphoto;
 
 shaders = new ShaderLoader('shaders');
 shaders.shaderSetLoaded = function() {
@@ -43,6 +43,7 @@ function init() {
   photos = new Photos();
   painting = new Painting();
   blobs = new Blobs();
+  dotphoto = new DotPhoto();
 
 
 }
@@ -57,6 +58,7 @@ function animate() {
   painting.update();
   floor.update();
   blobs.update();
+  dotphoto.update();
 }
 
 // handle resizing windows
