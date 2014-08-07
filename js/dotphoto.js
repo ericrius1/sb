@@ -1,4 +1,6 @@
 var DotPhoto = function() {
+  var x, y, r, g, b, a, radius, maxRadius;
+  var numDotsPerFrame = 100;
   var canvas = document.createElement('canvas');
   var width = 720;
   var height = 668;
@@ -17,28 +19,33 @@ var DotPhoto = function() {
     ctx.drawImage(image, 0, 0, width, height);
     imageData = ctx.getImageData(0, 0, width, height).data;
     canvasTexture.needsUpdate = true;
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, width, height);
   }
   var photoMesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), photoMat);
-  photoMesh.scale.multiplyScalar(.3);
+  photoMesh.scale.multiplyScalar(.35);
   photoMesh.position.set(-hallLength / 2 + photoGap, photoHeight, -hallLength * 0.25);
   photoMesh.rotation.y = Math.PI / 2;
   photoMesh.castShadow = true;
   scene.add(photoMesh);
 
   this.update = function() {
-    // pick out pixel data from x, y coordinate
-    var x = 400;
-    var y = 400;
-    var r= imageData[((width * y) + x) * 4];
-    var g = imageData[((width * y) + x) * 4 + 1];
-    var b = imageData[((width * y) + x) * 4 + 2];
-    var a = imageData[((width * y) + x) * 4 + 3];
-    
-    var radius = 50;
-    ctx.beginPath();
-    ctx.fillStyle = rgbToFillStyle(r, g, b, a);
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fill();
+    maxRadius = 20 * Math.abs(Math.sin(time * .1));
+    for(var i = 0; i < numDotsPerFrame; i++){
+
+      // pick out pixel data from x, y coordinate
+      x = _.random(0, width);
+      y = _.random(0, height);
+      r= imageData[((width * y) + x) * 4];
+      g = imageData[((width * y) + x) * 4 + 1];
+      b = imageData[((width * y) + x) * 4 + 2];
+      a = imageData[((width * y) + x) * 4 + 3];
+      radius = _.random(1, maxRadius);
+      ctx.beginPath();
+      ctx.fillStyle = rgbToFillStyle(r, g, b, a);
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
     canvasTexture.needsUpdate = true;
   }
 
