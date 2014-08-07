@@ -72,14 +72,3 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
 }
 
-function map(value, min1, max1, min2, max2) {
-  return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
-}
-
-function hslToFillStyle(h, s, l, a) {
-  if (a === undefined) {
-    return ["hsl(", h, ",", s, "%,", l, "%)"].join('');
-  } else {
-    return ["hsla(", h, ",", s, "%,", l, "%,", a, ")"].join('');
-  }
-}
