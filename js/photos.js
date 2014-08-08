@@ -6,7 +6,6 @@ var Photos = function() {
   //key is url root and value is resolution and scale data
   var photosData = [
     {name: 'doug.jpg', res:[566, 496], scale: .35},
-    {name: 'billrick.jpg', res: [2048, 1152], scale: .15},
     {name: 'mike.jpg', res: [1837, 1144], scale: .16},
     {name: 'cjkiakyle.jpg', res: [605, 466], scale: .26},
     {name: 'relkendra.jpg', res: [960, 720], scale: .21},
@@ -49,11 +48,6 @@ var Photos = function() {
     photo = photoMeshes[spi[curIndex++]];
     photo.position.set(-hallWidth/2 + photoGap, photoHeight, -hallLength/2)
     photo.rotation.y = Math.PI/2;
-
-    //Right side
-    photo = photoMeshes[spi[curIndex++]];
-    photo.position.set(hallWidth/2 - photoGap, photoHeight, -hallLength/2)
-    photo.rotation.y = -Math.PI/2;
   }
 
 }
