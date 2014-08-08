@@ -9,7 +9,7 @@ var controlObject;
 var clipPadding = 50;
 
 //paintings
-var photoHeight = 130;
+var photoHeight = 60;
 var photoGap = 10
 
 
