@@ -9,7 +9,9 @@ var BillRick = function() {
   var height = data.res[1];
   canvas.width = width;
   canvas.height = height;
-  var imageData;
+  var imageData, partImageData, drawReady;
+  //pd = part data
+  var pd= {startX: 100, startY: 100, endX: 200, endY: 130 };
   var ctx = canvas.getContext('2d');
   var image = new Image();
   image.src = 'assets/billrick.jpg';
@@ -21,6 +23,8 @@ var BillRick = function() {
   image.onload = function() {
     ctx.drawImage(image, 0, 0, width, height);
     imageData = ctx.getImageData(0, 0, width, height).data;
+    partImageData = ctx.getImageData(pd.startX, pd.endY, pd.endX - pd.startX, pd.endY - pd.startY);
+    drawReady = true;
     drawHair();
     canvasTexture.needsUpdate = true;
   }
@@ -33,14 +37,24 @@ var BillRick = function() {
   scene.add(photoMesh);
 
   function drawHair() {
-    for (x = 101; x < 202; x += 10) {
-      for (y = 95; y < 131; y += 10) {
-        ctx.beginPath();
-        ctx.fillStyle = rgbToFillStyle(100, 0, 100);
-        ctx.arc(x, y, 10, 0, Math.PI * 2);
-        ctx.fill();
+    if(!drawReady)return;
+    ctx.putImageData(partImageData, pd.startX, pd.endY);
+    for (var x = pd.startX; x < pd.endX; x += 10) {
+      for (var y = pd.startY; y < pd.endY; y += 10) {
+        if(_.random(1, 100) === 1){
+          // ctx.beginPath();
+          // ctx.fillStyle = rgbToFillStyle(_.random(0, 100), 0, _.random(0, 100));
+          // ctx.arc(x, y, 10, 0, Math.PI * 2);
+          // ctx.fill();
+          
+        }
       }
     }
+  }
+
+  this.update = function(){
+    drawHair();
+    canvasTexture.needsUpdate = true;
   }
 
 

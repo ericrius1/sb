@@ -58,6 +58,7 @@ function animate() {
   painting.update();
   blobs.update();
   dotphoto.update();
+  billrick.update()
 }
 
 // handle resizing windows
