@@ -9,6 +9,7 @@ var Photos = function() {
     {name: 'mike.jpg', res: [1837, 1144], scale: .16},
     {name: 'cjkiakyle.jpg', res: [605, 466], scale: .26},
     {name: 'relkendra.jpg', res: [960, 720], scale: .21},
+    {name: 'brian.jpg', res: [880, 960], scale: .15},
   ]
   var photoMeshes = [];
   loadPhotos();
@@ -36,6 +37,9 @@ var Photos = function() {
     //back
     var photo = photoMeshes[spi[curIndex++]];
     photo.position.set(0, photoHeight, 0-photoGap);
+
+    photo = photoMeshes[spi[curIndex++]];
+    photo.position.set(hallWidth/2 * 0.66, photoHeight, 0-photoGap);
     
     //Front
     photo = photoMeshes[spi[curIndex++]];
