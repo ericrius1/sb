@@ -34,7 +34,7 @@ var Painting = function() {
     yPos = map(controlObject.position.z, -hallLength, 0, 0, canvas.height);
     ctx.beginPath();
     ctx.strokeStyle = hslToFillStyle(hue, 70, 30, 0.2);
-    lineWidth = 10 + Math.sin(time) * 50;
+    lineWidth = 10 + Math.abs(Math.sin(time)) * 40;
     ctx.lineWidth = lineWidth;
     hue += .1;
     ctx.moveTo(prevX, prevY);

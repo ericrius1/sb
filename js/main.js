@@ -1,4 +1,4 @@
-var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs, dotphoto, billrick;
+var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs, dotphoto, billrick, linephoto;
 
 shaders = new ShaderLoader('shaders');
 shaders.shaderSetLoaded = function() {
@@ -45,6 +45,7 @@ function init() {
   blobs = new Blobs();
   dotphoto = new DotPhoto();
   billrick = new BillRick();
+  linephoto = new LinePhoto();
 
 }
 
@@ -58,6 +59,7 @@ function animate() {
   painting.update();
   blobs.update();
   dotphoto.update();
+  linephoto.update();
   billrick.update()
 }
 

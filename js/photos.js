@@ -7,7 +7,7 @@ var Photos = function() {
   var photosData = [
     {name: 'doug.jpg', res:[566, 496], scale: .35},
     {name: 'mike.jpg', res: [1837, 1144], scale: .16},
-    {name: 'cjkiakyle.jpg', res: [605, 466], scale: .26},
+    {name: 'cjkiakyle.jpg', res: [605, 466], scale: .31},
     {name: 'relkendra.jpg', res: [960, 720], scale: .21},
     {name: 'brian.jpg', res: [880, 960], scale: .15},
   ]
