@@ -63,6 +63,7 @@ function animate() {
   dotphoto.update();
   linephoto.update();
   billrick.update()
+  anitra.update();
 }
 
 // handle resizing windows

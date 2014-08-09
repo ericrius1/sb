@@ -22,8 +22,8 @@ var DotPhoto = function() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, width, height);
   }
-  var photoMesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), photoMat);
-  photoMesh.scale.multiplyScalar(.35);
+  var photoMesh = new THREE.Mesh(new THREE.PlaneGeometry(width/2, height/2), photoMat);
+  photoMesh.scale.multiplyScalar(.7);
   photoMesh.position.set(-hallLength / 2 + photoGap, photoHeight, -hallLength * 0.75);
   photoMesh.rotation.y = Math.PI / 2;
   photoMesh.castShadow = true;

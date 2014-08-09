@@ -7,20 +7,20 @@ var Photos = function() {
     scale: .35
   }, {
     name: 'mike.jpg',
-    res: [1837, 1144],
-    scale: .16
+    res: [900, 560],
+    scale: .3
   }, {
     name: 'cjkiakyle.jpg',
     res: [605, 466],
-    scale: .31
+    scale: .35
   }, {
     name: 'relkendra.jpg',
     res: [960, 720],
     scale: .26
   }, {
     name: 'brian.jpg',
-    res: [880, 960],
-    scale: .15
+    res: [444, 480],
+    scale: .3
   }, {
     name: 'sunset.jpg',
     res: [297, 171],
