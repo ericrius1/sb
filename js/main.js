@@ -1,5 +1,5 @@
 var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs, 
-dotphoto, billrick, linephoto, sunset;
+dotphoto, billrick, linephoto, anitra;
 
 shaders = new ShaderLoader('shaders');
 shaders.shaderSetLoaded = function() {
@@ -47,7 +47,7 @@ function init() {
   dotphoto = new DotPhoto();
   billrick = new BillRick();
   linephoto = new LinePhoto();
-  sunset = new Sunset();
+  anitra = new Anitra();
 
 }
 

@@ -24,7 +24,7 @@ var DotPhoto = function() {
   }
   var photoMesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), photoMat);
   photoMesh.scale.multiplyScalar(.35);
-  photoMesh.position.set(-hallLength / 2 + photoGap, photoHeight, -hallLength * 0.25);
+  photoMesh.position.set(-hallLength / 2 + photoGap, photoHeight, -hallLength * 0.75);
   photoMesh.rotation.y = Math.PI / 2;
   photoMesh.castShadow = true;
   scene.add(photoMesh);

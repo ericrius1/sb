@@ -1,6 +1,6 @@
 var LinePhoto = function() {
   var x, y, r, g, b, a, radius, maxRadius;
-  var numDotsPerFrame = 50;
+  var numDotsPerFrame = 20;
   var canvas = document.createElement('canvas');
   var width = 556;
   var height = 417;
