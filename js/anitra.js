@@ -4,6 +4,7 @@ var Anitra = function() {
   var height = canvas.height = 1468;
   var ctx = canvas.getContext('2d');
   var image = new Image();
+  var scale = 0.35
 
   var canvasTexture = new THREE.Texture(canvas);
   var photoMat = new THREE.MeshBasicMaterial({
@@ -16,9 +17,9 @@ var Anitra = function() {
     canvasTexture.needsUpdate = true;
   }
   var photoMesh = new THREE.Mesh(new THREE.PlaneGeometry(540, 734), photoMat);
-  photoMesh.scale.multiplyScalar(0.30);
+  photoMesh.scale.multiplyScalar(scale);
   photoMesh.rotation.y = Math.PI / 2;
-  photoMesh.position.set(-hallWidth / 2 + photoGap, photoHeight + 20, -hallLength * 0.25)
+  photoMesh.position.set(-hallWidth / 2 + photoGap, photoHeight + 30, -hallLength * 0.25)
   photoMesh.castShadow = true;
   scene.add(photoMesh);
 
@@ -36,7 +37,7 @@ var Stars = function(context) {
   var ctx = context;
   var width = ctx.canvas.width
   var height = ctx.canvas.height
-  var numStars = 70;
+  var numStars = 111;
   var stars = [];
 
   createStars();
@@ -55,16 +56,16 @@ var Stars = function(context) {
 
   this.draw = function() {
     _.each(stars, function(star) {
-      radius = Math.abs(Math.sin(time + star.startingTime)) * star.radius;
-      if (radius < .01) {
+      radius = Math.abs(Math.sin((time + star.startingTime) * 2.0)) * star.radius;
+      if (radius < .1) {
         star.x = _.random(0, width);
-        if(star.x > 360){
-          star.y = _.random(0, 410)
+        if(star.x > 320){
+          star.y = _.random(0, 440)
         }
         else{
           star.y = _.random(0, 300);
         }
-        star.radius = _.random(1,5);
+        star.radius = _.random(1,6);
       }
       ctx.fillStyle = rgbToFillStyle(star.color.x, star.color.y, star.color.z, 0.8);
       ctx.beginPath();

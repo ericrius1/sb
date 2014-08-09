@@ -1,9 +1,10 @@
 var LinePhoto = function() {
   var x, y, r, g, b, a, radius, maxRadius;
-  var numDotsPerFrame = 20;
+  var numDotsPerFrame = 40;
   var canvas = document.createElement('canvas');
   var width = 556;
   var height = 417;
+  var scale = .42
   canvas.width = width;
   canvas.height = height;
   var imageData = new Array();
@@ -23,7 +24,7 @@ var LinePhoto = function() {
     ctx.fillRect(0, 0, width, height);
   }
   var photoMesh = new THREE.Mesh(new THREE.PlaneGeometry(width, height), photoMat);
-  photoMesh.scale.multiplyScalar(.35);
+  photoMesh.scale.multiplyScalar(scale);
   photoMesh.position.set(hallLength / 2 - photoGap, photoHeight, -hallLength * 0.25);
   photoMesh.rotation.y = -Math.PI / 2;
   photoMesh.castShadow = true;

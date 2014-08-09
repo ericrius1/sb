@@ -55,7 +55,6 @@ function animate() {
   time = clock.getElapsedTime();
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
-  TWEEN.update();
   controls.update();
   hall.update();
   painting.update();
@@ -81,5 +80,5 @@ setTimeout(function(){
   $('#load').fadeOut(400);
   $('#instructions').fadeIn(800);
   controlEnabled = true;
-}, 4000)
+}, 500)
 

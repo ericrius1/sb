@@ -7,11 +7,11 @@ var hallLength = 2000;
 var playerStartZ = -100;
 var controlObject;
 var clipPadding = 50;
-var pHeight = 40;
+var pHeight = 50;
 var controlEnabled = false;
 
 //paintings
-var photoHeight = 100;
+var photoHeight = 111;
 var photoGap = 10
 
 

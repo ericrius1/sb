@@ -13,7 +13,7 @@ var Painting = function() {
   yPos = map(controlObject.position.z, -hallLength, 0, 0, canvas.height);
 
   //downsample canvas for better res
-  var paintingGeo = new THREE.PlaneGeometry(width / 10, height / 10);
+  var paintingGeo = new THREE.PlaneGeometry(width * 0.12, height  * 0.12);
   var paintingMat = new THREE.MeshBasicMaterial({
     map: canvasTexture,
     side: THREE.DoubleSide
@@ -22,7 +22,7 @@ var Painting = function() {
   painting.castShadow = true;
 
   //front right side
-  painting.position.set(-hallWidth * .33, photoHeight, -hallLength + photoGap);
+  painting.position.set(-hallWidth * .33, photoHeight + 10, -hallLength + photoGap);
 
   scene.add(painting);
 

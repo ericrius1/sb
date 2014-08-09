@@ -25,6 +25,6 @@ var Blobs = function(){
 
   this.update = function(){
     localTime= time + localTimeStart;
-    blobsMat.uniforms.time.value = localTime * .01;
+    blobsMat.uniforms.time.value = localTime * .03;
   }
 }

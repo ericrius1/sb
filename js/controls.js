@@ -33,7 +33,7 @@ var Controls = function() {
         blocker.style.display = '-moz-box';
         blocker.style.display = 'box';
 
-        instructions.style.display = '';
+        instructions.style.display = 'block';
 
       }
 
