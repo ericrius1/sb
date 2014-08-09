@@ -77,3 +77,8 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
 }
 
+setTimeout(function(){
+  $('#instructions').fadeIn(800);
+  controlEnabled = true;
+}, 4000)
+

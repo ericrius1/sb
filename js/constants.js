@@ -8,6 +8,7 @@ var playerStartZ = -100;
 var controlObject;
 var clipPadding = 50;
 var pHeight = 40;
+var controlEnabled = false;
 
 //paintings
 var photoHeight = 100;

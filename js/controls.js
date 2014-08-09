@@ -54,6 +54,7 @@ var Controls = function() {
     document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
 
     document.addEventListener('click', function(event) {
+      if(!controlEnabled)return;
 
 
       // Ask the browser to lock the pointer
@@ -90,6 +91,7 @@ var Controls = function() {
   }
 
   this.update = function() {
+
 
     fpsControls.update();
     if (controlObject.position.x > hallWidth / 2 - clipPadding) {

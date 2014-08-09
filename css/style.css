@@ -31,6 +31,8 @@ body {
   display: -moz-box;
   display: box;
 
+  display: none;
+
 
 
   color: #ffffff;
