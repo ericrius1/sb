@@ -26,18 +26,21 @@ body {
   left: 15%;
   top: 10%;
   z-index: 6;
-
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-
   display: none;
-
-
-
   color: #ffffff;
   text-align: center;
 
+  cursor: pointer;
+
+}
+
+#load{
+  position: absolute;
+  left: 15%;
+  top: 5%;
+  z-index: 6;
+  color: #ffffff;
+  text-align: center;
   cursor: pointer;
 
 }

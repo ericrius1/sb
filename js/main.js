@@ -78,6 +78,7 @@ function onWindowResize() {
 }
 
 setTimeout(function(){
+  $('#load').fadeOut(400);
   $('#instructions').fadeIn(800);
   controlEnabled = true;
 }, 4000)
