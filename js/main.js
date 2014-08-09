@@ -1,4 +1,4 @@
-var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs, 
+var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs, heart, 
 dotphoto, billrick, linephoto, anitra;
 
 shaders = new ShaderLoader('shaders');
@@ -48,6 +48,7 @@ function init() {
   billrick = new BillRick();
   linephoto = new LinePhoto();
   anitra = new Anitra();
+  heart = new Heart();
 
 }
 
@@ -63,6 +64,7 @@ function animate() {
   linephoto.update();
   billrick.update()
   anitra.update();
+  heart.update();
 }
 
 // handle resizing windows
