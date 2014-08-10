@@ -10,7 +10,7 @@ var clipPadding = 50;
 var pHeight = 50;
 var controlEnabled = false;
 var fpsControls;
-var paintDistance = 500;
+var paintDistance = 1000;
 
 //paintings
 var photoHeight = 111;

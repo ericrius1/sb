@@ -1,11 +1,13 @@
 var Hall = function() {
 
   //because of rotation!
+  var isSpraying;
   var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight);
   var intersections, intersectPoints;
   var canvasPoint = new THREE.Vector2();
   var imgTexture = THREE.ImageUtils.loadTexture('assets/wall.jpg');
   imgTexture.anisotropy = renderer.getMaxAnisotropy();
+  var lineWidth = 10;
   var wallMaterial = new THREE.MeshPhongMaterial({
       map: imgTexture,
       bumpMap: imgTexture,
@@ -26,12 +28,18 @@ var Hall = function() {
   canvasRW.width = hallLength;
   canvasRW.height = wallHeight;
   var ctxRW = canvasRW.getContext('2d');
-  ctxRW.fillStyle = rgbToFillStyle(255, 0, 255,0);
+  ctxRW.fillStyle = rgbToFillStyle(100, 0, 100, 0.2);
   ctxRW.fillRect(0, 0, hallLength, wallHeight);
+  ctxRW.lineWidth = lineWidth;
+  ctxRW.strokeStyle =rgbToFillStyle(100, 0, 100, 0.2)
+  ctxRW.lineJoin = ctxRW.lineCap = 'round';
+  ctxRW.shadowBlur = 5;
+  ctxRW.shadowColor = rgbToFillStyle(100, 0, 0);
   var canvasTexture = new THREE.Texture(canvasRW);
   var canvasMat = new THREE.MeshBasicMaterial({
     map: canvasTexture,
-    transparent: true
+    transparent: true,
+    opacity: 0.7
   })
   canvasTexture.needsUpdate = true;
   var sideRightWallCanvas = new THREE.Mesh(hallGeo, canvasMat)
@@ -41,7 +49,6 @@ var Hall = function() {
   sideRightWallCanvas.position.y += wallHeight / 2;
   scene.add(sideRightWallCanvas)
 
-  ctxRW.fillStyle ='red';
 
 
   var sideLeftWall = new THREE.Mesh(hallGeo, wallMaterial);
@@ -86,20 +93,45 @@ var Hall = function() {
   scene.add(ceiling);
 
   $(document).on('mousedown', function(){
-    sprayGraffiti(); 
+    attemptSpray()
   })
 
-  function sprayGraffiti(){
+  $(document).on('mouseup', function(){
+    isSpraying = false;
+  })
+  $(document).on('mousemove', function(){
+    sprayPaint(); 
+
+  })
+
+  function attemptSpray(){
     if(!fpsControls.enabled)return;
     raycaster.set(controlObject.position, fpsControls.getDirection());
-    var intersections = raycaster.intersectObject(sideRightWallCanvas)
+    intersections = raycaster.intersectObject(sideRightWallCanvas)
     if(intersections.length){
       intersectPoint = intersections[0].point;
-      console.log(intersectPoint)
-      ctxRW.beginPath();
-      ctxRW.arc(hallLength + intersectPoint.z, wallHeight - intersectPoint.y, 10, 0, Math.PI * 2);
+      ctxRW.beginPath()
+      ctxRW.arc(hallLength + intersectPoint.z, wallHeight - intersectPoint.y, lineWidth/4, 0, Math.PI * 2)
       ctxRW.fill();
+      ctxRW.closePath()
+      ctxRW.moveTo(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      isSpraying = true;
+      canvasTexture.needsUpdate = true;
     }
+  }
+
+  function sprayPaint(){
+    if(!isSpraying)return
+    raycaster.set(controlObject.position, fpsControls.getDirection());
+    intersections = raycaster.intersectObject(sideRightWallCanvas);
+    if(intersections.length){
+      intersectPoint = intersections[0].point
+      ctxRW.lineTo(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      ctxRW.stroke();
+
+    }
+    canvasTexture.needsUpdate = true;
+    
   }
 
 
@@ -108,7 +140,6 @@ var Hall = function() {
     var uTime = time * .02;
     ceilingMaterial.uniforms.time.value = uTime;
 
-    canvasTexture.needsUpdate = true;
   }
 
 }
