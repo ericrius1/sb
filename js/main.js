@@ -1,5 +1,5 @@
 var scene, camera, controls, renderer, clock, time, lights, hall, photos, prize, shaders, painting, floor,blobs, heart, 
-dotphoto, billrick, linephoto, anitra;
+dotphoto, billrick, linephoto, anitra, raycaster;
 
 shaders = new ShaderLoader('shaders');
 shaders.shaderSetLoaded = function() {
@@ -35,7 +35,12 @@ function init() {
   renderer.shadowMapEnabled = true;
   renderer.shadowMapType = THREE.PCFShadowMap
 
+  raycaster = new THREE.Raycaster();
+
   document.body.appendChild(renderer.domElement);
+  renderer.domElement.id = 'glCanvas';
+
+  raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(), 0, paintDistance);
 
   clock = new THREE.Clock();
   hall = new Hall();
@@ -49,6 +54,7 @@ function init() {
   linephoto = new LinePhoto();
   anitra = new Anitra();
   heart = new Heart();
+
 
 }
 
@@ -82,5 +88,5 @@ setTimeout(function(){
   $('#load').fadeOut(400);
   $('#instructions').fadeIn(800);
   controlEnabled = true;
-}, 4000)
+}, 40)
 

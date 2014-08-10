@@ -2,7 +2,7 @@
 var Controls = function() {
   var blocker = document.getElementById('blocker');
   var instructions = document.getElementById('instructions');
-  var fpsControls = new THREE.PointerLockControls(camera);
+  fpsControls = new THREE.PointerLockControls(camera);
   controlObject = fpsControls.getObject();
   controlObject.position.z = -100;
   scene.add(fpsControls.getObject());

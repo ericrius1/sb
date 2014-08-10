@@ -40,7 +40,7 @@ var BillRick = function() {
 
   var photoMesh = new THREE.Mesh(new THREE.PlaneGeometry(data.res[0], data.res[1]), photoMat);
   photoMesh.castShadow = true;
-  photoMesh.position.set(hallWidth / 2 - photoGap + 1, photoHeight, -hallLength / 2)
+  photoMesh.position.set(hallWidth / 2 - photoGap, photoHeight, -hallLength / 2)
   photoMesh.scale.multiplyScalar(data.scale);
   photoMesh.rotation.y = -Math.PI / 2;
   scene.add(photoMesh);
