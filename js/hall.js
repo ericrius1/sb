@@ -2,7 +2,7 @@ var Hall = function() {
 
   var ceilingMaterial;
   var isSpraying;
-  var canvasScale = 0.95
+  var canvasScale = 1
   var canvasOpacity = 0.95
   var strokeOpacity = 0.2
   var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight);
@@ -14,11 +14,11 @@ var Hall = function() {
   var canvasPoint = new THREE.Vector2();
   var imgTexture = THREE.ImageUtils.loadTexture('assets/wall.jpg');
   imgTexture.anisotropy = renderer.getMaxAnisotropy();
-  var lineWidth = 10;
+  var lineWidth = 4;
   var canvasPoint = new THREE.Vector2();
-  var hue = 10;
-  var light = 60;
-  var saturation = 60;
+  var hue = 100;
+  var saturation = 100;
+  var light = 50;
 
   setUpWalls();
   setUpCanvases();
@@ -39,10 +39,11 @@ var Hall = function() {
   function attemptSpray() {
     if (!fpsControls.enabled) return;
     if (getHitPoint()) {
-      // curCtx.beginPath()
-      // curCtx.arc(canvasPoint.x, canvasPoint.y, lineWidth / 4, 0, Math.PI * 2)
-      // curCtx.fill();
-      // curCtx.closePath()
+      curCtx.fillStyle = hslToFillStyle(hue, light, saturation, strokeOpacity)
+      curCtx.beginPath()
+      curCtx.arc(canvasPoint.x, canvasPoint.y, lineWidth / 4, 0, Math.PI * 2)
+      curCtx.fill();
+      curCtx.closePath()
       prevCtx = curCtx;
       prevCanvasPoint.set(canvasPoint.x, canvasPoint.y)
       isSpraying = true;
@@ -61,15 +62,17 @@ var Hall = function() {
         prevCtx = curCtx;
 
       }
+      hue +=0.2;
+      // var tempHue = Math.floor(hue)
+      console.log(Math.floor(hue))
       curCtx.beginPath();
+      curCtx.strokeStyle = hslToFillStyle(hue, saturation, light, 1)
+      curCtx.shadowColor = hslToFillStyle(hue+_.random(-50, 50), saturation, light);
       curCtx.moveTo(prevCanvasPoint.x, prevCanvasPoint.y)
       curCtx.lineTo(canvasPoint.x, canvasPoint.y)
       curCtx.stroke();
       curCtx.closePath();
       prevCanvasPoint.set(canvasPoint.x, canvasPoint.y);
-      hue += 1
-      curCtx.strokeStyle = hslToFillStyle(hue, light, saturation, strokeOpacity)
-      curCtx.fillStyle = hslToFillStyle(hue, light, saturation, strokeOpacity)
       hitData.object.material.map.needsUpdate = true;
     }
   }
@@ -173,7 +176,7 @@ var Hall = function() {
     canvasBW = new THREE.Mesh(hallGeo, canvasMat)
     canvasBW.position.y += wallHeight / 2;
     canvasBW.rotation.y = Math.PI;
-    canvasBW.position.z -= photoGap - 1;
+    canvasBW.position.z = -photoGap - 1;
     scene.add(canvasBW)
     canvasBW.ctx = ctxBW;
 
@@ -205,11 +208,10 @@ var Hall = function() {
       ctx.fillStyle = rgbToFillStyle(100, 0, 100, 0);
       ctx.fillRect(0, 0, hallLength, wallHeight);
       ctx.lineWidth = lineWidth;
-      ctx.strokeStyle = hslToFillStyle(hue, 50, 50, strokeOpacity)
-      ctx.fillStyle = hslToFillStyle(hue, 50, 50, strokeOpacity)
+      ctx.strokeStyle = hslToFillStyle(hue, saturation, light, strokeOpacity)
+      ctx.fillStyle = hslToFillStyle(hue, saturation, light, strokeOpacity)
       ctx.lineJoin = ctx.lineCap = 'round';
-      ctx.shadowBlur = 7;
-      ctx.shadowColor = rgbToFillStyle(100, 0, 0);
+      ctx.shadowBlur = 3;
     }
   }
 

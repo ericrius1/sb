@@ -88,5 +88,5 @@ setTimeout(function(){
   $('#load').fadeOut(400);
   $('#instructions').fadeIn(800);
   controlEnabled = true;
-}, 40)
+}, 5000)
 
