@@ -16,6 +16,8 @@ var Hall = function() {
   var lineWidth = 10;
   var canvasPoint = new THREE.Vector2();
   var hue = 10;
+  var light = 60;
+  var saturation = 60;
 
   setUpWalls();
   setUpCanvases();
@@ -58,8 +60,10 @@ var Hall = function() {
       curCtx.stroke();
       curCtx.closePath();
       prevCanvasPoint.set(canvasPoint.x, canvasPoint.y);
+      hue += 1
+      curCtx.strokeStyle = hslToFillStyle(hue, light, saturation, strokeOpacity)
+      curCtx.fillStyle = hslToFillStyle(hue, light, saturation, strokeOpacity)
       hitData.object.material.map.needsUpdate = true;
-      hue += .1
     }
   }
 
@@ -183,7 +187,7 @@ var Hall = function() {
     canvasTextureFW.needsUpdate = true;
     canvasFW = new THREE.Mesh(hallGeo, canvasMat)
     canvasFW.position.y += wallHeight / 2;
-    canvasFW.position.z =  -hallLength + photoGap + 1;
+    canvasFW.position.z = -hallLength + photoGap + 1;
     scene.add(canvasFW)
     canvasFW.ctx = ctxFW;
 
@@ -194,8 +198,8 @@ var Hall = function() {
       ctx.fillStyle = rgbToFillStyle(100, 0, 100, 0);
       ctx.fillRect(0, 0, hallLength, wallHeight);
       ctx.lineWidth = lineWidth;
-      ctx.strokeStyle = hslToFillStyle(hue, 0, 100, strokeOpacity)
-      ctx.strokeStyle = hslToFillStyle(hue, 0, 100, strokeOpacity)
+      ctx.strokeStyle = hslToFillStyle(hue, 50, 50, strokeOpacity)
+      ctx.fillStyle = hslToFillStyle(hue, 50, 50, strokeOpacity)
       ctx.lineJoin = ctx.lineCap = 'round';
       ctx.shadowBlur = 7;
       ctx.shadowColor = rgbToFillStyle(100, 0, 0);
