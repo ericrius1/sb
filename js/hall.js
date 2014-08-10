@@ -11,6 +11,7 @@ var Hall = function() {
   var imgTexture = THREE.ImageUtils.loadTexture('assets/wall.jpg');
   imgTexture.anisotropy = renderer.getMaxAnisotropy();
   var lineWidth = 10;
+  var canvasPoint = new THREE.Vector2();
 
   setUpWalls();
   setUpCanvases();
@@ -65,7 +66,8 @@ var Hall = function() {
     if (intersections.length) {
       intersectPoint = intersections[0].point;
       ctxRW.beginPath()
-      ctxRW.arc(hallLength + intersectPoint.z, wallHeight - intersectPoint.y, lineWidth / 4, 0, Math.PI * 2)
+      canvasPoint.set(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      ctxRW.arc(canvasPoint.x, canvasPoint.y, lineWidth / 4, 0, Math.PI * 2)
       ctxRW.fill();
       ctxRW.closePath()
       ctxRW.moveTo(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
@@ -80,7 +82,8 @@ var Hall = function() {
     intersections = raycaster.intersectObject(canvasRW);
     if (intersections.length) {
       intersectPoint = intersections[0].point
-      ctxRW.lineTo(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      canvasPoint.set(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      ctxRW.lineTo(canvasPoint.x, canvasPoint.y)
       ctxRW.stroke();
 
     }
