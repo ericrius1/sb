@@ -15,6 +15,7 @@ var Hall = function() {
 
   setUpWalls();
   setUpCanvases();
+
   $(document).on('mousedown', function() {
     attemptSpray()
   })
@@ -24,40 +25,8 @@ var Hall = function() {
   })
   $(document).on('mousemove', function() {
     sprayPaint();
-
   })
 
-  function setUpCanvases() {
-
-    canvasRW = document.createElement('canvas');
-    canvasRW.width = hallLength;
-    canvasRW.height = wallHeight;
-    ctxRW = canvasRW.getContext('2d');
-    setUpContext(ctxRW);
-    canvasTextureRW = new THREE.Texture(canvasRW);
-    var canvasMat = new THREE.MeshBasicMaterial({
-      map: canvasTextureRW,
-      transparent: true,
-      opacity: 0.7
-    })
-    canvasTextureRW.needsUpdate = true;
-    canvasRW = new THREE.Mesh(hallGeo, canvasMat)
-    canvasRW.rotation.y = -Math.PI / 2;
-    canvasRW.position.x = hallWidth / 2 - photoGap - 1;
-    canvasRW.position.z -= hallLength / 2;
-    canvasRW.position.y += wallHeight / 2;
-    scene.add(canvasRW)
-
-    function setUpContext(ctx) {
-      ctxRW.fillStyle = rgbToFillStyle(100, 0, 100, 0.2);
-      ctxRW.fillRect(0, 0, hallLength, wallHeight);
-      ctxRW.lineWidth = lineWidth;
-      ctxRW.strokeStyle = rgbToFillStyle(100, 0, 100, 0.2)
-      ctxRW.lineJoin = ctxRW.lineCap = 'round';
-      ctxRW.shadowBlur = 5;
-      ctxRW.shadowColor = rgbToFillStyle(100, 0, 0);
-    }
-  }
 
   function attemptSpray() {
     if (!fpsControls.enabled) return;
@@ -95,6 +64,97 @@ var Hall = function() {
     var uTime = time * .02;
     ceilingMaterial.uniforms.time.value = uTime;
 
+  }
+
+
+  function setUpCanvases() {
+
+    //RIGHT WALL
+    canvasRW = document.createElement('canvas');
+    canvasRW.width = hallLength;
+    canvasRW.height = wallHeight;
+    ctxRW = canvasRW.getContext('2d');
+    setUpContext(ctxRW);
+    canvasTextureRW = new THREE.Texture(canvasRW);
+    var canvasMat = new THREE.MeshBasicMaterial({
+      map: canvasTextureRW,
+      transparent: true,
+      opacity: 0.7
+    })
+    canvasTextureRW.needsUpdate = true;
+    canvasRW = new THREE.Mesh(hallGeo, canvasMat)
+    canvasRW.rotation.y = -Math.PI / 2;
+    canvasRW.position.x = hallWidth / 2 - photoGap - 1;
+    canvasRW.position.z -= hallLength / 2;
+    canvasRW.position.y += wallHeight / 2;
+    scene.add(canvasRW)
+
+    //LEFT WALL
+    canvasLW = document.createElement('canvas');
+    canvasLW.width = hallLength;
+    canvasLW.height = wallHeight;
+    ctxLW = canvasLW.getContext('2d');
+    setUpContext(ctxLW);
+    canvasTextureLW = new THREE.Texture(canvasLW);
+    var canvasMat = new THREE.MeshBasicMaterial({
+      map: canvasTextureLW,
+      transparent: true,
+      opacity: 0.7
+    })
+    canvasTextureLW.needsUpdate = true;
+    canvasLW = new THREE.Mesh(hallGeo, canvasMat)
+    canvasLW.rotation.y = Math.PI / 2;
+    canvasLW.position.x = -hallWidth / 2 + photoGap + 1;
+    canvasLW.position.z -= hallLength / 2;
+    canvasLW.position.y += wallHeight / 2;
+    scene.add(canvasLW)
+
+    //BACK WALL
+    canvasBW = document.createElement('canvas');
+    canvasBW.width = hallLength;
+    canvasBW.height = wallHeight;
+    ctxBW = canvasBW.getContext('2d');
+    setUpContext(ctxBW);
+    canvasTextureBW = new THREE.Texture(canvasBW);
+    var canvasMat = new THREE.MeshBasicMaterial({
+      map: canvasTextureBW,
+      transparent: true,
+      opacity: 0.7
+    })
+    canvasTextureBW.needsUpdate = true;
+    canvasBW = new THREE.Mesh(hallGeo, canvasMat)
+    canvasBW.position.z -= hallLength;
+    canvasBW.position.y += wallHeight / 2;
+    scene.add(canvasBW)
+
+    //FRONT WALL
+    canvasFW = document.createElement('canvas');
+    canvasFW.width = hallLength;
+    canvasFW.height = wallHeight;
+    ctxFW = canvasFW.getContext('2d');
+    setUpContext(ctxFW);
+    canvasTextureFW = new THREE.Texture(canvasFW);
+    var canvasMat = new THREE.MeshBasicMaterial({
+      map: canvasTextureFW,
+      transparent: true,
+      opacity: 0.7
+    })
+    canvasTextureFW.needsUpdate = true;
+    canvasFW = new THREE.Mesh(hallGeo, canvasMat)
+    canvasFW.position.y += wallHeight / 2;
+    canvasFW.rotation.y = Math.PI;
+    scene.add(canvasFW)
+
+
+    function setUpContext(ctx) {
+      ctx.fillStyle = rgbToFillStyle(100, 0, 100, 1);
+      ctx.fillRect(0, 0, hallLength, wallHeight);
+      ctx.lineWidth = lineWidth;
+      ctx.strokeStyle = rgbToFillStyle(100, 0, 100, 0.2)
+      ctx.lineJoin = ctx.lineCap = 'round';
+      ctx.shadowBlur = 5;
+      ctx.shadowColor = rgbToFillStyle(100, 0, 0);
+    }
   }
 
   function setUpWalls() {
