@@ -2,10 +2,11 @@ var Hall = function() {
 
   var ceilingMaterial;
   var isSpraying;
+  var canvasScale = 0.95
   var canvasOpacity = 0.95
   var strokeOpacity = 0.2
   var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight);
-  var canvasRW, canvasLW, canvasBW, canvasFW, canvases, curCtx, hitData, mappedPointX;
+  var canvasRW, canvasLW, canvasBW, canvasFW, canvases, curCtx, prevCtx, hitData, mappedPointX;
   var prevCanvasPoint = new THREE.Vector2();
   var ctxRW, ctxLW, ctxBW, ctxFW;
   var canvasTextureRW, canvasTextureLW, canvasTextureBW, canvasTextureFW;
@@ -42,6 +43,7 @@ var Hall = function() {
       // curCtx.arc(canvasPoint.x, canvasPoint.y, lineWidth / 4, 0, Math.PI * 2)
       // curCtx.fill();
       // curCtx.closePath()
+      prevCtx = curCtx;
       prevCanvasPoint.set(canvasPoint.x, canvasPoint.y)
       isSpraying = true;
       hitData.object.material.map.needsUpdate = true;
@@ -54,6 +56,11 @@ var Hall = function() {
     raycaster.set(controlObject.position, fpsControls.getDirection());
     intersections = raycaster.intersectObjects(canvases);
     if (getHitPoint()) {
+      if(curCtx !== prevCtx){
+        prevCanvasPoint.set(canvasPoint.x, canvasPoint.y);
+        prevCtx = curCtx;
+
+      }
       curCtx.beginPath();
       curCtx.moveTo(prevCanvasPoint.x, prevCanvasPoint.y)
       curCtx.lineTo(canvasPoint.x, canvasPoint.y)
@@ -88,7 +95,6 @@ var Hall = function() {
 
       }
       if (curCtx.name === 'fw') {
-        console.log('hit')
         mappedPointX = map(intersectPoint.x, -hallLength / 2, hallLength / 2, 0, hallLength);
         canvasPoint.set(mappedPointX, wallHeight - intersectPoint.y);
 
@@ -188,6 +194,7 @@ var Hall = function() {
     canvasFW = new THREE.Mesh(hallGeo, canvasMat)
     canvasFW.position.y += wallHeight / 2;
     canvasFW.position.z = -hallLength + photoGap + 1;
+    // canvasFW.scale.multiplyScalar(canvasScale);
     scene.add(canvasFW)
     canvasFW.ctx = ctxFW;
 
