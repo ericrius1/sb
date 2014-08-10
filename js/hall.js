@@ -2,8 +2,11 @@ var Hall = function() {
 
   var ceilingMaterial;
   var isSpraying;
+  var canvasOpacity = 0.95
+  var strokeOpacity = 0.2
   var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight);
-  var canvasRW, canvasLW, canvasBW, canvasFW, canvases, curCtx;
+  var canvasRW, canvasLW, canvasBW, canvasFW, canvases, curCtx, hitData;
+  var prevCanvasPoint = new THREE.Vector2();
   var ctxRW, ctxLW, ctxBW, ctxFW;
   var canvasTextureRW, canvasTextureLW, canvasTextureBW, canvasTextureFW;
   var intersections, intersectPoints;
@@ -15,6 +18,7 @@ var Hall = function() {
 
   setUpWalls();
   setUpCanvases();
+
 
   $(document).on('mousedown', function() {
     attemptSpray()
@@ -35,9 +39,10 @@ var Hall = function() {
       ctxRW.arc(canvasPoint.x, canvasPoint.y, lineWidth / 4, 0, Math.PI * 2)
       ctxRW.fill();
       ctxRW.closePath()
-      ctxRW.moveTo(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      prevCanvasPoint.set(canvasPoint.x, canvasPoint.y)
       isSpraying = true;
-      canvasTextureRW.needsUpdate = true;
+      hitData.object.material.map.needsUpdate = true;
+
     }
   }
 
@@ -46,9 +51,13 @@ var Hall = function() {
     raycaster.set(controlObject.position, fpsControls.getDirection());
     intersections = raycaster.intersectObjects(canvases);
     if (getHitPoint()) {
-      ctxRW.lineTo(canvasPoint.x, canvasPoint.y)
-      ctxRW.stroke();
-      canvasTextureRW.needsUpdate = true;
+      curCtx.beginPath();
+      curCtx.moveTo(prevCanvasPoint.x, prevCanvasPoint.y)
+      curCtx.lineTo(canvasPoint.x, canvasPoint.y)
+      curCtx.stroke();
+      curCtx.closePath();
+      prevCanvasPoint.set(canvasPoint.x, canvasPoint.y);
+      hitData.object.material.map.needsUpdate = true;
     }
   }
 
@@ -56,10 +65,21 @@ var Hall = function() {
     raycaster.set(controlObject.position, fpsControls.getDirection());
     intersections = raycaster.intersectObjects(canvases)
     if (intersections.length) {
-      var hitData = intersections[0];
+      hitData = intersections[0];
       intersectPoint = hitData.point;
       curCtx = hitData.object.ctx;
-      canvasPoint.set(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      curTexture = hitData.object.material.map;
+      if(curCtx.name === 'rw')
+        canvasPoint.set(hallLength + intersectPoint.z, wallHeight - intersectPoint.y);
+      if(curCtx.name === 'lw')
+        canvasPoint.set(-intersectPoint.z, wallHeight - intersectPoint.y);
+      if(curCtx.name === 'bw')
+        var mappedPointX = map(intersectPoint.x, -hallLength/2, hallLength/2, hallLength, 0);
+        console.log(mappedPointX)
+        canvasPoint.set(mappedPointX, wallHeight - intersectPoint.y);
+      if(curCtx.name === 'fw')
+        var mappedPointX = map(intersectPoint.x, -hallLength/2, hallLength/2, 0, hallLength);
+        canvasPoint.set(mappedPointX, wallHeight- intersectPoint.y);
       return true;
     }
     return false;
@@ -70,7 +90,6 @@ var Hall = function() {
     ceilingMaterial.uniforms.time.value = uTime;
 
   }
-
 
   function setUpCanvases() {
 
@@ -85,7 +104,7 @@ var Hall = function() {
     var canvasMat = new THREE.MeshBasicMaterial({
       map: canvasTextureRW,
       transparent: true,
-      opacity: 0.7
+      opacity: canvasOpacity
     })
     canvasTextureRW.needsUpdate = true;
     canvasRW = new THREE.Mesh(hallGeo, canvasMat)
@@ -107,7 +126,7 @@ var Hall = function() {
     var canvasMat = new THREE.MeshBasicMaterial({
       map: canvasTextureLW,
       transparent: true,
-      opacity: 0.7
+      opacity: canvasOpacity
     })
     canvasTextureLW.needsUpdate = true;
     canvasLW = new THREE.Mesh(hallGeo, canvasMat)
@@ -129,12 +148,13 @@ var Hall = function() {
     var canvasMat = new THREE.MeshBasicMaterial({
       map: canvasTextureBW,
       transparent: true,
-      opacity: 0.7
+      opacity: canvasOpacity
     })
     canvasTextureBW.needsUpdate = true;
     canvasBW = new THREE.Mesh(hallGeo, canvasMat)
-    canvasBW.position.z -= hallLength;
     canvasBW.position.y += wallHeight / 2;
+    canvasBW.rotation.y = Math.PI;
+    canvasBW.position.z -= photoGap - 1;
     scene.add(canvasBW)
     canvasBW.ctx = ctxBW;
 
@@ -149,12 +169,12 @@ var Hall = function() {
     var canvasMat = new THREE.MeshBasicMaterial({
       map: canvasTextureFW,
       transparent: true,
-      opacity: 0.7
+      opacity: canvasOpacity
     })
     canvasTextureFW.needsUpdate = true;
     canvasFW = new THREE.Mesh(hallGeo, canvasMat)
     canvasFW.position.y += wallHeight / 2;
-    canvasFW.rotation.y = Math.PI;
+    canvasFW.position.z -= hallLength + photoGap +1;
     scene.add(canvasFW)
     canvasFW.ctx = ctxFW;
 
@@ -162,12 +182,12 @@ var Hall = function() {
 
 
     function setUpContext(ctx) {
-      ctx.fillStyle = rgbToFillStyle(100, 0, 100, 1);
+      ctx.fillStyle = rgbToFillStyle(100, 0, 100, 0);
       ctx.fillRect(0, 0, hallLength, wallHeight);
       ctx.lineWidth = lineWidth;
-      ctx.strokeStyle = rgbToFillStyle(100, 0, 100, 0.2)
+      ctx.strokeStyle = rgbToFillStyle(100, 0, 100, strokeOpacity)
       ctx.lineJoin = ctx.lineCap = 'round';
-      ctx.shadowBlur = 5;
+      ctx.shadowBlur = 7;
       ctx.shadowColor = rgbToFillStyle(100, 0, 0);
     }
   }
