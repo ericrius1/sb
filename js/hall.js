@@ -3,7 +3,7 @@ var Hall = function() {
   var ceilingMaterial;
   var isSpraying;
   var hallGeo = new THREE.PlaneGeometry(hallLength, wallHeight);
-  var canvasRW, canvasLW, canvasBW, canvasFW;
+  var canvasRW, canvasLW, canvasBW, canvasFW, canvases, curCtx;
   var ctxRW, ctxLW, ctxBW, ctxFW;
   var canvasTextureRW, canvasTextureLW, canvasTextureBW, canvasTextureFW;
   var intersections, intersectPoints;
@@ -30,12 +30,8 @@ var Hall = function() {
 
   function attemptSpray() {
     if (!fpsControls.enabled) return;
-    raycaster.set(controlObject.position, fpsControls.getDirection());
-    intersections = raycaster.intersectObject(canvasRW)
-    if (intersections.length) {
-      intersectPoint = intersections[0].point;
+    if (getHitPoint()) {
       ctxRW.beginPath()
-      canvasPoint.set(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
       ctxRW.arc(canvasPoint.x, canvasPoint.y, lineWidth / 4, 0, Math.PI * 2)
       ctxRW.fill();
       ctxRW.closePath()
@@ -48,16 +44,25 @@ var Hall = function() {
   function sprayPaint() {
     if (!isSpraying) return
     raycaster.set(controlObject.position, fpsControls.getDirection());
-    intersections = raycaster.intersectObject(canvasRW);
-    if (intersections.length) {
-      intersectPoint = intersections[0].point
-      canvasPoint.set(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+    intersections = raycaster.intersectObjects(canvases);
+    if (getHitPoint()) {
       ctxRW.lineTo(canvasPoint.x, canvasPoint.y)
       ctxRW.stroke();
-
+      canvasTextureRW.needsUpdate = true;
     }
-    canvasTextureRW.needsUpdate = true;
+  }
 
+  function getHitPoint() {
+    raycaster.set(controlObject.position, fpsControls.getDirection());
+    intersections = raycaster.intersectObjects(canvases)
+    if (intersections.length) {
+      var hitData = intersections[0];
+      intersectPoint = hitData.point;
+      curCtx = hitData.object.ctx;
+      canvasPoint.set(hallLength + intersectPoint.z, wallHeight - intersectPoint.y)
+      return true;
+    }
+    return false;
   }
 
   this.update = function() {
@@ -74,6 +79,7 @@ var Hall = function() {
     canvasRW.width = hallLength;
     canvasRW.height = wallHeight;
     ctxRW = canvasRW.getContext('2d');
+    ctxRW.name = 'rw';
     setUpContext(ctxRW);
     canvasTextureRW = new THREE.Texture(canvasRW);
     var canvasMat = new THREE.MeshBasicMaterial({
@@ -88,12 +94,14 @@ var Hall = function() {
     canvasRW.position.z -= hallLength / 2;
     canvasRW.position.y += wallHeight / 2;
     scene.add(canvasRW)
+    canvasRW.ctx = ctxRW;
 
     //LEFT WALL
     canvasLW = document.createElement('canvas');
     canvasLW.width = hallLength;
     canvasLW.height = wallHeight;
     ctxLW = canvasLW.getContext('2d');
+    ctxLW.name = 'lw';
     setUpContext(ctxLW);
     canvasTextureLW = new THREE.Texture(canvasLW);
     var canvasMat = new THREE.MeshBasicMaterial({
@@ -108,12 +116,14 @@ var Hall = function() {
     canvasLW.position.z -= hallLength / 2;
     canvasLW.position.y += wallHeight / 2;
     scene.add(canvasLW)
+    canvasLW.ctx = ctxLW;
 
     //BACK WALL
     canvasBW = document.createElement('canvas');
     canvasBW.width = hallLength;
     canvasBW.height = wallHeight;
     ctxBW = canvasBW.getContext('2d');
+    ctxBW.name = 'bw';
     setUpContext(ctxBW);
     canvasTextureBW = new THREE.Texture(canvasBW);
     var canvasMat = new THREE.MeshBasicMaterial({
@@ -126,12 +136,14 @@ var Hall = function() {
     canvasBW.position.z -= hallLength;
     canvasBW.position.y += wallHeight / 2;
     scene.add(canvasBW)
+    canvasBW.ctx = ctxBW;
 
     //FRONT WALL
     canvasFW = document.createElement('canvas');
     canvasFW.width = hallLength;
     canvasFW.height = wallHeight;
     ctxFW = canvasFW.getContext('2d');
+    ctxFW.name = 'fw';
     setUpContext(ctxFW);
     canvasTextureFW = new THREE.Texture(canvasFW);
     var canvasMat = new THREE.MeshBasicMaterial({
@@ -144,6 +156,9 @@ var Hall = function() {
     canvasFW.position.y += wallHeight / 2;
     canvasFW.rotation.y = Math.PI;
     scene.add(canvasFW)
+    canvasFW.ctx = ctxFW;
+
+    canvases = [canvasFW, canvasBW, canvasLW, canvasRW];
 
 
     function setUpContext(ctx) {
